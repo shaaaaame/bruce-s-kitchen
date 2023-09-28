@@ -3,9 +3,8 @@
 Problem Domain: Recipes 
 
 Description of Application:
-- Search for recipes based on ingredients in your fridge.
-- Input ingredients, filter by cuisine/dietary restrictions.
-- To fight food waste.
+- Create a shoppig list from n number of recipes. 
+- Cater to broad categories, i.e. protein vs. chicken/beef and to dietary restrictions.
 
 Recipe Search API: https://developer.edamam.com/edamam-recipe-api
 

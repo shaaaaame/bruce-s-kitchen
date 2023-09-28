@@ -3,7 +3,7 @@
 Problem Domain: Recipes 
 
 Description of Application:
-- Create a shoppig list from n number of recipes. 
+- Create a grocery list for n number of recipes picked by user.
 - Cater to broad categories, i.e. protein vs. chicken/beef and to dietary restrictions.
 
 Recipe Search API: https://developer.edamam.com/edamam-recipe-api

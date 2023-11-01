@@ -8,8 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -43,25 +41,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        signUp.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(signUp)) {
-                            SignupState currentState = signupViewModel.getState();
-
-                            signupController.execute(
-                                    currentState.getUsername(),
-                                    currentState.getPassword(),
-                                    currentState.getRepeatPassword()
-                            );
-
-                            System.out.println("Signed up");
-                        }
-                    }
-                }
-        );
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
@@ -70,71 +49,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(repeatPasswordInfo);
         this.add(buttons);
 
-        cancel.addActionListener(this);
 
-        usernameInputField.addKeyListener(
-            new KeyListener() {
-                public void keyTyped(KeyEvent e){
-                    SignupState currentState = signupViewModel.getState();
-                    String text = usernameInputField.getText() + e.getKeyChar();
-                    currentState.setUsername(text);
-                    signupViewModel.setState(currentState);
-                }
-
-                @Override
-                public void keyPressed(KeyEvent e) {
-                }
-
-                @Override
-                public void keyReleased(KeyEvent e) {
-                }
-            }
-        );
-
-        passwordInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
-                        signupViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
-
-        repeatPasswordInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
-                        signupViewModel.setState(currentState); // Hmm, is this necessary?
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-
-                    }
-                }
-        );
     }
-
-
 
 
     @Override

@@ -13,7 +13,7 @@ public class SignupViewModel extends ViewModel {
 
     public void setState(SignupState state) { this.state = state; }
     public SignupState getState() { return state; }
-    public SignupViewModel(String viewName) {
+    public SignupViewModel() {
         super("Sign Up");
     }
 

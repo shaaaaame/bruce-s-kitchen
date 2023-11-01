@@ -11,7 +11,8 @@ public class SignupViewModel extends ViewModel {
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
     private SignupState state = new SignupState();
 
-
+    public void setState(SignupState state) { this.state = state; }
+    public SignupState getState() { return state; }
     public SignupViewModel(String viewName) {
         super("Sign Up");
     }

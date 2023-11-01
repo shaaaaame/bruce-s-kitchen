@@ -22,7 +22,7 @@ public class SignupInteractor implements SignupInputBoundary{
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())){
             userPresenter.prepareFailView("Passwords are not identical");
         } else {
-            User user = UserFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
+            User user = userFactory.create(signupInputData.getUsername(), signupInputData.getPassword());
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getUsername(),false);

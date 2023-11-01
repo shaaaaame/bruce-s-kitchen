@@ -14,5 +14,6 @@ public class SignupInputData {
     String getPassword(){return password;}
 
 
-
+    public String getRepeatPassword() {return repeatPassword;
+    }
 }

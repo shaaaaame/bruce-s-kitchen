@@ -8,19 +8,19 @@ public class ViewManagerModel {
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public String getViewName() {
+    public String getActiveView() {
         return activeViewName;
     }
 
-    public void setViewName(String meow) {
-        this.activeViewName = meow;
+    public void setActiveView(String activeView) {
+        this.activeViewName = activeView;
     }
 
     public void firePropertyChanged() {
         support.firePropertyChange("view", null, this.activeViewName);
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener meow) {
-        support.addPropertyChangeListener(meow);
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 }

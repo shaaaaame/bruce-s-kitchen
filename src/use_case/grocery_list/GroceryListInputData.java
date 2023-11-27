@@ -7,11 +7,11 @@ import java.util.UUID;
 
 public class GroceryListInputData {
     private final UUID groceryId;
-    private final int userId;
+    private final UUID userId;
     private final LocalDateTime dateCreated;
     private Map<String, String> ingredients; // ingredient name : quantity;
 
-    GroceryListInputData(UUID groceryId, int userId, LocalDateTime dateCreated, Map<String, String> ingredients){
+    GroceryListInputData(UUID groceryId, UUID userId, LocalDateTime dateCreated, Map<String, String> ingredients){
         this.groceryId = groceryId;
         this.userId = userId;
         this.dateCreated = dateCreated;
@@ -19,7 +19,7 @@ public class GroceryListInputData {
     }
 
     UUID getGroceryId(){ return this.groceryId; }
-    int getUserId(){ return this.userId; }
+    UUID getUserId(){ return this.userId; }
     LocalDateTime getDate(){ return this.dateCreated; }
     Map<String, String> getIngredients() { return this.ingredients; }
 }

@@ -3,27 +3,33 @@ package entity;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GroceryList {
 
-    // used to auto-increment id when new list created
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private final int grocery_id;
-    private final int user_id;
-    private final LocalDateTime date_created;
+    private final UUID groceryId;
+    private final int userId;
+    private final LocalDateTime dateCreated;
     private Map<String, String> ingredients; // ingredient name : quantity;
 
-    GroceryList(int user_id, LocalDateTime date_created, Map<String, String> ingredients){
-        this.grocery_id = count.incrementAndGet();
-        this.user_id = user_id;
-        this.date_created = date_created;
+    public GroceryList(UUID groceryId, int userId, LocalDateTime dateCreated, Map<String, String> ingredients){
+        this.groceryId = groceryId;
+        this.userId = userId;
+        this.dateCreated = dateCreated;
         this.ingredients = ingredients;
     }
 
-    public int getGroceryId(){ return this.grocery_id; }
-    public int getUserId(){ return this.user_id; }
-    public LocalDateTime getDate(){ return this.date_created; }
+    public GroceryList(int userId, LocalDateTime dateCreated, Map<String, String> ingredients){
+        this.groceryId = UUID.randomUUID();
+        this.userId = userId;
+        this.dateCreated = dateCreated;
+        this.ingredients = ingredients;
+    }
+
+    public UUID getGroceryId(){ return this.groceryId; }
+    public int getUserId(){ return this.userId; }
+    public LocalDateTime getDate(){ return this.dateCreated; }
     public Map<String, String> getIngredients() { return this.ingredients; }
 
 

@@ -58,7 +58,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s,%s",
+                String line = String.format("%s,%s",
                         user.getUsername(), user.getPassword());
                 writer.write(line);
                 writer.newLine();
@@ -73,7 +73,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public User get(String username) {
-        return null;
+        return accounts.get(username);
     }
 
     @Override

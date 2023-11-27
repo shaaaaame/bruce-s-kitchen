@@ -38,13 +38,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         JLabel title = new JLabel("Login Screen");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        LabelTextPanel usernameInfo = new LabelTextPanel(
+                new JLabel(loginViewModel.USERNAME_LABEL), usernameInputField);
+        LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel(loginViewModel.PASSWORD_LABEL), passwordInputField);
+
         JPanel buttons = new JPanel();
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
         buttons.add(logIn);
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
-        logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
+        logIn.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logIn)) {
@@ -98,9 +103,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 });
 
         this.add(title);
-        this.add(usernameInputField);
+        this.add(usernameInfo);
         this.add(usernameErrorField);
-        this.add(passwordInputField);
+        this.add(passwordInfo);
         this.add(passwordErrorField);
         this.add(buttons);
     }

@@ -1,11 +1,15 @@
 package app;
 
-import data_access.InMemoryUserDataAccessObject;
+import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.SignupView;
 import view.ViewManager;
+import view.LoginView;
+import view.LoggedInView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,14 +35,26 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
 
-        InMemoryUserDataAccessObject userDataAccessObject;
-        userDataAccessObject = new InMemoryUserDataAccessObject();
+        FileUserDataAccessObject userDataAccessObject;
+        try {
+            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        views.add(loginView, loginView.viewName);
+
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        views.add(loggedInView, loggedInView.viewName);
+
+        viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

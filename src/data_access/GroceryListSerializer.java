@@ -21,6 +21,7 @@ public class GroceryListSerializer extends StdSerializer<GroceryList> {
     @Override
     public void serialize(GroceryList groceryList, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("name", groceryList.getName().toString());
         jsonGenerator.writeStringField("groceryId", groceryList.getGroceryId().toString());
         jsonGenerator.writeStringField("userId", groceryList.getUserId().toString());
         jsonGenerator.writeStringField("dateCreated", groceryList.getDate().toString());

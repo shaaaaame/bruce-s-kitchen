@@ -28,6 +28,7 @@ public class GroceryListsDeserializer extends StdDeserializer<List<GroceryList>>
         if(root.isArray()){
             for(JsonNode node: root){
                 UUID groceryId = UUID.fromString(node.get("groceryId").asText());
+                String name = node.get("name").asText();
                 UUID userId = UUID.fromString(node.get("userId").asText());
                 LocalDateTime dateCreated = LocalDateTime.parse(node.get("dateCreated").asText());
                 Map<String, String> ingredients = new HashMap<String, String>();
@@ -40,7 +41,7 @@ public class GroceryListsDeserializer extends StdDeserializer<List<GroceryList>>
                     ingredients.put(fieldName, ingredientNode.get(fieldName).toString());
                 }
 
-                groceryLists.add(new GroceryList(groceryId, userId, dateCreated, ingredients));
+                groceryLists.add(new GroceryList(groceryId, name, userId, dateCreated, ingredients));
             }
 
         }

@@ -21,21 +21,18 @@ public class GroceryListInteractor implements GroceryListInputBoundary{
 
     @Override
     public void execute(GroceryListInputData groceryListInputData) {
-        if (!groceryListDataAccessObject.existsById(groceryListInputData.getGroceryId())){
-            groceryPresenter.prepareFailView("groceryId is not unique!");
-        } else {
-            GroceryList groceryList = groceryListFactory.create(
-                    groceryListInputData.getUserId(),
-                    LocalDateTime.now(),
-                    groceryListInputData.getIngredients()
-            );
-            groceryListDataAccessObject.save(groceryList);
+        GroceryList groceryList = groceryListFactory.create(
+                groceryListInputData.getName(),
+                groceryListInputData.getUserId(),
+                LocalDateTime.now(),
+                groceryListInputData.getIngredients()
+        );
+        groceryListDataAccessObject.save(groceryList);
 
-            GroceryListOutputData groceryListOutputData = new GroceryListOutputData(
-                    groceryList.getDate(),
-                    groceryList.getIngredients()
-            );
-            groceryPresenter.prepareSuccessView(groceryListOutputData);
-        }
+        GroceryListOutputData groceryListOutputData = new GroceryListOutputData(
+                groceryList.getDate(),
+                groceryList.getIngredients()
+        );
+        groceryPresenter.prepareSuccessView(groceryListOutputData);
     }
 }

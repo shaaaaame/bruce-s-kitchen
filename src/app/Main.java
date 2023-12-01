@@ -1,9 +1,12 @@
 package app;
 
+import data_access.FileGroceryListDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.UserFactory;
+import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
+import view.GroceryListView;
 import view.SignupView;
 import view.ViewManager;
 
@@ -31,14 +34,24 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
+        GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
 
-        InMemoryUserDataAccessObject userDataAccessObject;
-        userDataAccessObject = new InMemoryUserDataAccessObject();
+        InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+
+        FileGroceryListDataAccessObject groceryListDataAccessObject;
+        try{
+            groceryListDataAccessObject = new FileGroceryListDataAccessObject();
+        }catch (IOException e ){
+            throw new RuntimeException("Unable to read groceryList.json");
+        }
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
+        views.add(groceryListView, groceryListView.viewName);
+
+        viewManagerModel.setActiveView(groceryListView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

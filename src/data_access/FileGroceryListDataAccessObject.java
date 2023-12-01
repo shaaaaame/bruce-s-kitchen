@@ -15,14 +15,13 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public class FileGroceryListDataAccessObject implements GroceryListDataAccessInterface {
-    private final String JSON_PATH;
+    private final String JSON_PATH = "./groceryList.json";
     private final Map<UUID, GroceryList> groceryListMap = new HashMap<UUID, GroceryList>();
     private final File jsonFile;
     private GroceryListFactory groceryListFactory;
 
-    public FileGroceryListDataAccessObject(String jsonPath, GroceryListFactory groceryListFactory) throws IOException {
-        this.groceryListFactory = groceryListFactory;
-        JSON_PATH = jsonPath;
+    public FileGroceryListDataAccessObject() throws IOException {
+        this.groceryListFactory = new GroceryListFactory();
         jsonFile = new File(JSON_PATH);
         jsonFile.createNewFile();
 

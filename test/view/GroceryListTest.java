@@ -15,12 +15,13 @@ import use_case.grocery_list.GroceryListInputData;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class GroceryListTest {
 
-    String testJsonPath = "./testGroceryList.json";
+    String testJsonPath = "./groceryList.json";
     Map<UUID, GroceryList> groceryListMap = new HashMap<UUID, GroceryList>();
     UUID testGroceryListUUID = UUID.randomUUID();
     GroceryListFactory groceryListFactory = new GroceryListFactory();
@@ -33,7 +34,7 @@ public class GroceryListTest {
     @Before
     public void init(){
         try{
-            fileGroceryListDataAccessObject = new FileGroceryListDataAccessObject(testJsonPath, groceryListFactory);
+            fileGroceryListDataAccessObject = new FileGroceryListDataAccessObject();
             initializeGroceryListMap(fileGroceryListDataAccessObject);
         } catch (IOException e){
             throw new RuntimeException();
@@ -86,7 +87,7 @@ public class GroceryListTest {
             }
         }
 
-        if (jsonStringBuilder.toString().equals("")){
+        if (jsonStringBuilder.toString().equals("") || jsonStringBuilder.toString().equals("[]")){
             return;
         }
 
@@ -103,11 +104,11 @@ public class GroceryListTest {
 
     public void createGroceryList(FileGroceryListDataAccessObject fileGroceryListDataAccessObject){
 
-        Map<String, String> ingredients = new HashMap<>();
-        ingredients.put("banana", "5 pcs");
-        ingredients.put("sugar", "2 tbps");
+        List<String> ingredients = new ArrayList<>();
+        ingredients.add("5 pcs bananas");
+        ingredients.add("2 tbps sugar");
 
-        GroceryList groceryList = groceryListFactory.create(testGroceryListUUID, UUID.randomUUID(), LocalDateTime.now(), ingredients);
+        GroceryList groceryList = groceryListFactory.create(testGroceryListUUID, "Name", UUID.randomUUID(), LocalDateTime.now(), ingredients);
         fileGroceryListDataAccessObject.save(groceryList);
     }
 }

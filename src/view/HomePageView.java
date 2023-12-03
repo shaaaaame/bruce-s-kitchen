@@ -18,6 +18,9 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         this.homePageViewModel = homePageViewModel;
         homePageViewModel.addPropertyChangeListener(this);
 
+        JPanel mainContent = new JPanel();
+        mainContent.setLayout(new BoxLayout(mainContent, BoxLayout.PAGE_AXIS));
+
         JLabel searchLabel = new JLabel(HomePageViewModel.SEARCH_LABEL);
         JTextField searchField = new JTextField(20);
         JButton searchButton = new JButton("Search");
@@ -32,6 +35,7 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
 
         this.setLayout(new BorderLayout());
         this.add(menuBar, BorderLayout.NORTH);
+        this.add(mainContent, BorderLayout.CENTER);
 
         JMenu menu = new JMenu("Menu");
         JMenuItem groceryList = new JMenuItem("Grocery List");
@@ -45,13 +49,13 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         menu.add(userProfile);
         menuBar.add(menu);
 
-        this.add(searchLabel);
-        this.add(searchField);
-        this.add(searchButton);
+        mainContent.add(searchLabel);
+        mainContent.add(searchField);
+        mainContent.add(searchButton);
 
         ImageIcon duck = new ImageIcon(getClass().getResource("/Resources/peckingduck.jpeg"));
         JLabel img = new JLabel(duck);
-        this.add(img);
+        mainContent.add(img);
 
     }
 

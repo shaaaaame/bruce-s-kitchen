@@ -16,12 +16,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
-import view.ViewManager;
-
-import javax.swing.*;
-import javax.swing.text.View;
-import java.awt.*;
-
 public class Main {
     public static void main(String[] args) {
         JFrame app = new JFrame("Example: Login");

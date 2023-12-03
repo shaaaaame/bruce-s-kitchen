@@ -15,6 +15,8 @@ import view.MenuBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 public class Main {
@@ -26,10 +28,11 @@ public class Main {
         CardLayout cardLayout = new CardLayout();
 
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+        MenuBar menuBar = new MenuBar(viewManagerModel);
 
         JPanel views = new JPanel(cardLayout);
         app.setLayout(new BorderLayout());
-        app.add(new MenuBar(viewManagerModel), BorderLayout.NORTH);
+        app.add(menuBar, BorderLayout.NORTH);
         app.add(views, BorderLayout.CENTER);
 
         new ViewManager(views, cardLayout, viewManagerModel);
@@ -57,7 +60,7 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, homePageViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
@@ -69,7 +72,19 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(homePageView.viewName);
+        viewManagerModel.setActiveView(loginView.viewName);
+        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getSource().equals(viewManagerModel)){
+                    if (viewManagerModel.isLoggedIn()){
+                        menuBar.show();
+                    }else{
+                        menuBar.hide();
+                    }
+                }
+            }
+        });
         viewManagerModel.firePropertyChanged();
 
         app.pack();

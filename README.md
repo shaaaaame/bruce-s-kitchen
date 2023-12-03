@@ -6,7 +6,7 @@ Description of Application:
 - Create a grocery list for n number of recipes picked by user.
 - Cater to broad categories, i.e. protein vs. chicken/beef and to dietary restrictions.
 
-Recipe Search API: https://developer.edamam.com/edamam-recipe-api
+Recipe Search API: https://api-ninjas.com/api/recipe
 
 Used Postman to try out the API
 ![ss](https://github.com/shaaaaame/bruce-s-kitchen/assets/144577778/14b6782f-d99e-4293-a795-3a1b6906dba4)

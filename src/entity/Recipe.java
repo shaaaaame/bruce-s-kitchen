@@ -1,10 +1,6 @@
 package entity;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class Recipe {
     private UUID recipe_id;
@@ -42,7 +38,7 @@ public class Recipe {
     public UUID getUserId(){ return this.user_id; }
     public LocalDateTime getDate(){ return this.dateCreated; }
     public List<String> getIngredients() { return this.ingredients; }
-
-
+    public String getName() { return this.name; }
+    public String getInstructions(){ return this.instructions; }
 
 }

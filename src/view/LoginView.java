@@ -93,6 +93,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.add(buttons);
     }
 
+    void showError(String error){
+        JOptionPane.showMessageDialog(null, "Error: " + error);
+    }
+
     /**
      * React to a button click that results in evt.
      */
@@ -102,7 +106,12 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
         LoginState state = (LoginState) evt.getNewValue();
+        String loginError = state.getLoginError();
+        if(loginError != null){
+            showError(loginError);
+        }
         setFields(state);
     }
 

@@ -7,15 +7,7 @@ import java.util.UUID;
 
 public class RecipeFactory {
     public Recipe create(UUID recipe_id, UUID user_id, String name, String servings, List<String> ingredients, Tag[] tags, String instructions, LocalDateTime dateCreated){
-        return new Recipe(
-                recipe_id,
-                user_id,
-                name,
-                servings,
-                ingredients,
-                tags,
-                instructions,
-                dateCreated);
+        return new Recipe(recipe_id, user_id, name, servings, ingredients, tags, instructions, dateCreated);
     }
     // If it is API call, please set UUID to null :)))))
 

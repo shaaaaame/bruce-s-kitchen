@@ -10,7 +10,9 @@ public class LoginViewModel {
     public final String PASSWORD_LABEL = "Password";
 
     public static final String LOGIN_BUTTON_LABEL = "Log in";
+    public static final String SIGNUP_BUTTON_LABEL = "Sign up";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
+
 
     private LoginState state = new LoginState();
 

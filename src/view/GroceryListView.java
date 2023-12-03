@@ -25,8 +25,6 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
     public final String viewName = "Grocery List";
     private final GroceryListViewModel groceryListViewModel;
     private final GroceryListController groceryListController;
-    Integer startSelectedIndex = 0;
-    Integer endSelectedIndex = 0;
 
     public GroceryListView(GroceryListController groceryListController, GroceryListViewModel groceryListViewModel) {
         this.groceryListViewModel = groceryListViewModel;
@@ -82,17 +80,6 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
                     }
                 }
         );
-        ingredientListPanel.addListSelectionListener(
-                new ListSelectionListener() {
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        if (e.getSource().equals(ingredientListPanel)){
-                            startSelectedIndex = e.getFirstIndex();
-                            endSelectedIndex = e.getLastIndex();
-                        }
-                    }
-                }
-        );
 
         removeIngredientButton.addActionListener(
                 new ActionListener() {
@@ -100,19 +87,13 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(removeIngredientButton)){
 
-
                             GroceryListState currentState = groceryListViewModel.getState();
                             List<String> currentIngredients = currentState.getIngredients();
 
-                            if (endSelectedIndex >= currentIngredients.size()){
+                            if (ingredientListPanel.isSelectionEmpty()){
                                 JOptionPane.showMessageDialog(null, "make a selection!");
                             } else{
-                                for(int i = endSelectedIndex; i >= startSelectedIndex; i--){
-                                    currentIngredients.remove(i);
-                                }
-
-                                endSelectedIndex = 0;
-                                startSelectedIndex = 0;
+                                currentIngredients.removeAll(ingredientListPanel.getSelectedValuesList());
 
                                 ingredientListPanel.setListData(currentIngredients.toArray(new String[0]));
                                 currentState.setIngredients(currentIngredients);

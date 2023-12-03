@@ -30,6 +30,7 @@ public class GroceryListInteractor implements GroceryListInputBoundary{
         groceryListDataAccessObject.save(groceryList);
 
         GroceryListOutputData groceryListOutputData = new GroceryListOutputData(
+                groceryList.getName(),
                 groceryList.getDate(),
                 groceryList.getIngredients()
         );

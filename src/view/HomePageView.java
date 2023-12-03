@@ -18,11 +18,6 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         this.homePageViewModel = homePageViewModel;
         homePageViewModel.addPropertyChangeListener(this);
 
-        JFrame jFrame = new JFrame("Bruce's Kitchen");
-        jFrame.setLayout(new FlowLayout());
-        jFrame.setSize(1600, 1200);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         JLabel searchLabel = new JLabel(HomePageViewModel.SEARCH_LABEL);
         JTextField searchField = new JTextField(20);
         JButton searchButton = new JButton("Search");
@@ -34,6 +29,10 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
             }
         });
         JMenuBar menuBar = new JMenuBar();
+
+        this.setLayout(new BorderLayout());
+        this.add(menuBar, BorderLayout.NORTH);
+
         JMenu menu = new JMenu("Menu");
         JMenuItem groceryList = new JMenuItem("Grocery List");
         JMenuItem bookmarked = new JMenuItem("BookMarked");
@@ -46,15 +45,13 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
         menu.add(userProfile);
         menuBar.add(menu);
 
-        jFrame.setJMenuBar(menuBar);
-        jFrame.add(searchLabel);
-        jFrame.add(searchField);
-        jFrame.add(searchButton);
+        this.add(searchLabel);
+        this.add(searchField);
+        this.add(searchButton);
 
         ImageIcon duck = new ImageIcon(getClass().getResource("/Resources/peckingduck.jpeg"));
         JLabel img = new JLabel(duck);
-        jFrame.add(img);
-        jFrame.setVisible(true);
+        this.add(img);
 
     }
 

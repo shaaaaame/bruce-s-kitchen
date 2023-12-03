@@ -16,7 +16,6 @@ public class SignupController {
                 username, password1, password2);
 
         userSignupUseCaseInteractor.execute(signupInputData);
-        System.out.println(username);
     }
 
 }

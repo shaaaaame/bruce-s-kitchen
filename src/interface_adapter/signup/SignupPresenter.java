@@ -23,12 +23,14 @@ public class SignupPresenter implements SignupOutputBoundary {
     @Override
     public void prepareSuccessView(SignupOutputData response) {
         viewManagerModel.firePropertyChanged();
+        System.out.println("Success :D");
     }
 
     @Override
     public void prepareFailView(String error) {
         SignupState signupState = signupViewModel.getState();
+        signupState.setUsernameError(error);
         signupViewModel.firePropertyChanged();
-
+        System.out.println("Sign up failed. " + error);
     }
 }

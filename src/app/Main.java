@@ -1,16 +1,16 @@
 package app;
 
 import data_access.FileGroceryListDataAccessObject;
+import data_access.FileUserDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
+import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import view.GroceryListView;
+import view.*;
 import interface_adapter.homepage.HomePageViewModel;
-import view.HomePage;
-import view.SignupView;
-import view.ViewManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,8 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        JFrame app = new JFrame("Example: Login");
+
+        JFrame app = new JFrame("User");
         app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -30,10 +31,17 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
+        LoginViewModel loginViewModel = new LoginViewModel();
+        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
 
-        InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+        FileUserDataAccessObject userDataAccessObject;
+        try {
+            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         FileGroceryListDataAccessObject groceryListDataAccessObject;
         try{
@@ -43,14 +51,21 @@ public class Main {
         }
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
-        HomePage homePage = new HomePage(homePageViewModel);
         views.add(signupView, signupView.viewName);
-        views.add(homePage, homePage.viewName);
+
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        views.add(loginView, loginView.viewName);
+
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        views.add(loggedInView, loggedInView.viewName);
+
+        HomePageView homePageView = new HomePageView(homePageViewModel);
+        views.add(homePageView, homePageView.viewName);
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(groceryListView.viewName);
+        viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

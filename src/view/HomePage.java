@@ -24,7 +24,7 @@ public class HomePage extends JPanel implements ActionListener, PropertyChangeLi
 
         JFrame jFrame = new JFrame("Bruce's Kitchen");
         jFrame.setLayout(new FlowLayout());
-        jFrame.setSize(800, 600);
+        jFrame.setSize(1600, 1200);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JLabel searchLabel = new JLabel(HomePageViewModel.SEARCH_LABEL);
@@ -48,6 +48,7 @@ public class HomePage extends JPanel implements ActionListener, PropertyChangeLi
         menu.add(bookmarked);
         menu.add(createRecipe);
         menu.add(userProfile);
+        menuBar.add(menu);
 
         jFrame.setJMenuBar(menuBar);
         jFrame.add(searchLabel);

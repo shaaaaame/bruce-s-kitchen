@@ -2,8 +2,10 @@ package app;
 
 import data_access.InMemoryUserDataAccessObject;
 import entity.UserFactory;
+import interface_adapter.homepage.HomePageViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
+import view.HomePage;
 import view.SignupView;
 import view.ViewManager;
 
@@ -31,12 +33,15 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
+        HomePageViewModel homePageViewModel = new HomePageViewModel();
 
         InMemoryUserDataAccessObject userDataAccessObject;
         userDataAccessObject = new InMemoryUserDataAccessObject();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
+        HomePage homePage = new HomePage(homePageViewModel);
         views.add(signupView, signupView.viewName);
+        views.add(homePage, homePage.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

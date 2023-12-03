@@ -4,9 +4,15 @@ import interface_adapter.grocery_list.GroceryListController;
 import interface_adapter.grocery_list.GroceryListState;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.signup.SignupState;
+import view.grocery_list.AddIngredientPanel;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.beans.JavaBean;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,6 +25,8 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
     public final String viewName = "Grocery List";
     private final GroceryListViewModel groceryListViewModel;
     private final GroceryListController groceryListController;
+    Integer startSelectedIndex = 0;
+    Integer endSelectedIndex = 0;
 
     public GroceryListView(GroceryListController groceryListController, GroceryListViewModel groceryListViewModel) {
         this.groceryListViewModel = groceryListViewModel;
@@ -26,29 +34,128 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
 
         // TODO: uncomment once implemented
         // implement button function, send data
-        // groceryListViewModel.addPropertyChangeListener(this);
+         groceryListViewModel.addPropertyChangeListener(this);
 
+
+        // create title
         JLabel title = new JLabel(GroceryListViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel titleSpace = new JPanel();
 
         JTextField nameField = new JTextField();
-        JComboBox<JTextField> ingredientBox = new JComboBox<>();
+        LabelTextPanel nameTextPanel = new LabelTextPanel(new JLabel("name:"), nameField);
+
+        JList<String> ingredientListPanel = new JList<String>();
+        JLabel ingredientText = new JLabel("ingredients:");
+        JScrollPane ingredientScrollPane = new JScrollPane(ingredientListPanel);
+        JPanel ingredientBox = new JPanel();
+
         JPanel buttons = new JPanel();
         JButton backButton = new JButton("back");
+        JPanel leftPanel = new JPanel();
+        JPanel rightPanel = new JPanel();
         JButton submitButton = new JButton("submit");
+        JButton removeIngredientButton = new JButton("remove ingredient");
+        JButton addIngredientButton = new JButton("add ingredient");
 
+        // Add listeners
         submitButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(submitButton)) {
-                            GroceryListState currentState = groceryListViewModel.getState();
 
-                            groceryListController.execute(
-                                    currentState.getName(),
-                                    currentState.getUserId(),
-                                    currentState.getIngredients()
-                            );
+                            if (validateData()){
+                                GroceryListState currentState = groceryListViewModel.getState();
+
+                                groceryListController.execute(
+                                        currentState.getName(),
+                                        currentState.getUserId(),
+                                        currentState.getIngredients()
+                                );
+                            } else {
+                                JOptionPane.showMessageDialog(null, "some fields are blank!");
+                            }
+
+
+
+                        }
+                    }
+                }
+        );
+        ingredientListPanel.addListSelectionListener(
+                new ListSelectionListener() {
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if (e.getSource().equals(ingredientListPanel)){
+                            startSelectedIndex = e.getFirstIndex();
+                            endSelectedIndex = e.getLastIndex();
+                        }
+                    }
+                }
+        );
+
+        removeIngredientButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(removeIngredientButton)){
+
+
+                            GroceryListState currentState = groceryListViewModel.getState();
+                            List<String> currentIngredients = currentState.getIngredients();
+
+                            if (endSelectedIndex >= currentIngredients.size()){
+                                JOptionPane.showMessageDialog(null, "make a selection!");
+                            } else{
+                                for(int i = endSelectedIndex; i >= startSelectedIndex; i--){
+                                    currentIngredients.remove(i);
+                                }
+
+                                endSelectedIndex = 0;
+                                startSelectedIndex = 0;
+
+                                ingredientListPanel.setListData(currentIngredients.toArray(new String[0]));
+                                currentState.setIngredients(currentIngredients);
+                                groceryListViewModel.setState(currentState);
+                            }
+
+
+
+                        }
+                    }
+                }
+        );
+
+        addIngredientButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(addIngredientButton)){
+
+                            JTextField ingredientField = new JTextField();
+                            JTextField amountField = new JTextField();
+
+                            AddIngredientPanel addIngredientPanel = new AddIngredientPanel(ingredientField, amountField);
+
+                            String[] options = { "add", "cancel" };
+                            int result = JOptionPane.showOptionDialog(null,
+                                    addIngredientPanel, "add new ingredient",
+                                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                    null,options , null);
+
+                            if (result == JOptionPane.YES_OPTION){
+                                if (ingredientField.getText().equals("")){
+                                    JOptionPane.showMessageDialog(null, "ingredient must be filled!");
+                                }else{
+                                    GroceryListState currentState = groceryListViewModel.getState();
+                                    List<String> currentIngredients = currentState.getIngredients();
+                                    currentIngredients.add(ingredientField.getText() + ": " + amountField.getText());
+                                    currentState.setIngredients(currentIngredients);
+                                    groceryListViewModel.setState(currentState);
+
+                                    ingredientListPanel.setListData(currentIngredients.toArray(new String[0]));
+                                }
+                            }
                         }
                     }
                 }
@@ -76,16 +183,80 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
                 }
         );
 
-        //Build the UI
+        // Edit layout
+
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        title.setAlignmentY(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Serif", Font.PLAIN, 20));
+        titleSpace.setMaximumSize(new Dimension(9999, 100));
+        titleSpace.setLayout(new BorderLayout());
+        titleSpace.add(title, BorderLayout.LINE_START);
+        titleSpace.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+
+        ingredientText.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ingredientText.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+
+        ingredientBox.setAlignmentX(Component.CENTER_ALIGNMENT);
+        ingredientBox.setLayout(new BoxLayout(ingredientBox, BoxLayout.PAGE_AXIS));
+        ingredientBox.add(ingredientText);
+        ingredientBox.add(ingredientScrollPane);
+        ingredientBox.setPreferredSize(new Dimension(300, 300));
+        ingredientBox.setMaximumSize(new Dimension(9999, 500));
+        ingredientScrollPane.setBackground(new Color(255, 255, 255));
+        ingredientScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        buttons.setLayout(new BorderLayout());
+
+        backButton.setBackground(Colors.highlight1);
+        submitButton.setBackground(Colors.highlight1);
+        addIngredientButton.setBackground(Colors.highlight1);
+        removeIngredientButton.setBackground(Colors.highlight1);
+
+        backButton.setPreferredSize(new Dimension(150, 30));
+        submitButton.setPreferredSize(new Dimension(150, 30));
+        addIngredientButton.setPreferredSize(new Dimension(150, 30));
+        removeIngredientButton.setPreferredSize(new Dimension(150, 30));
+
+
+        // Build the UI
 
         this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        buttons.add(backButton);
-        buttons.add(submitButton);
-        this.add(title);
-        this.add(nameField);
+        rightPanel.add(removeIngredientButton);
+        rightPanel.add(addIngredientButton);
+        rightPanel.add(submitButton);
+        rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        leftPanel.add(backButton);
+        leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        buttons.add(leftPanel, BorderLayout.LINE_START);
+        buttons.add(rightPanel, BorderLayout.LINE_END);
+
+        this.add(titleSpace);
+        this.add(nameTextPanel);
         this.add(ingredientBox);
         this.add(buttons);
+    }
+
+    private void deleteIngredientsFromArray(int start, int end){
+        GroceryListState currentState = groceryListViewModel.getState();
+        List<String> currentIngredients = currentState.getIngredients();
+
+        for(int i = end; i >= start; i--){
+            currentIngredients.remove(i);
+        }
+
+        currentState.setIngredients(currentIngredients);
+    }
+
+    private boolean validateData(){
+        GroceryListState currentState = groceryListViewModel.getState();
+
+        boolean nameCheck = !currentState.getName().isEmpty();
+        boolean ingredientCheck = !currentState.getIngredients().isEmpty();
+
+        return nameCheck && ingredientCheck;
     }
 
     @Override

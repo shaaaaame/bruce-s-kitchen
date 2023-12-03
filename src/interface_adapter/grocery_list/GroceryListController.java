@@ -4,6 +4,7 @@ import use_case.grocery_list.GroceryListInputBoundary;
 import use_case.grocery_list.GroceryListInputData;
 import use_case.grocery_list.GroceryListInteractor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class GroceryListController {
         this.groceryListInteractor = groceryListInputBoundary;
     }
 
-    public void execute(String name, UUID userId, Map<String, String> ingredients){
+    public void execute(String name, UUID userId, List<String> ingredients){
         GroceryListInputData groceryListInputData = new GroceryListInputData(
                 name, userId, ingredients
         );

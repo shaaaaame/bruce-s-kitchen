@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import entity.GroceryList;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Map;
 
 public class GroceryListSerializer extends StdSerializer<GroceryList> {
@@ -23,16 +25,16 @@ public class GroceryListSerializer extends StdSerializer<GroceryList> {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("name", groceryList.getName().toString());
         jsonGenerator.writeStringField("groceryId", groceryList.getGroceryId().toString());
-        jsonGenerator.writeStringField("userId", groceryList.getUserId().toString());
+        jsonGenerator.writeStringField("userId", groceryList.getUserId() != null ? groceryList.getUserId().toString() : null);
         jsonGenerator.writeStringField("dateCreated", groceryList.getDate().toString());
-        jsonGenerator.writeObjectFieldStart("ingredients");
 
-        Map<String, String> ingredients = groceryList.getIngredients();
-        for(String ingredient : ingredients.keySet()){
-            jsonGenerator.writeStringField(ingredient, ingredients.get(ingredient).toString().replaceAll("\\P{Print}", ""));
+        jsonGenerator.writeArrayFieldStart("ingredients");
+        List<String > ingredients = groceryList.getIngredients();
+        for(String ingredient : ingredients){
+            jsonGenerator.writeString(ingredient);
         }
+        jsonGenerator.writeEndArray();
 
-        jsonGenerator.writeEndObject();
         jsonGenerator.writeEndObject();
     }
 }

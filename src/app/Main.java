@@ -1,22 +1,16 @@
 package app;
 
 import data_access.InMemoryUserDataAccessObject;
-import entity.UserFactory;
 import interface_adapter.homepage.HomePageViewModel;
+import interface_adapter.recipeCreator.RecipeCreatorViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.HomePage;
+import view.RecipeCreatorView;
 import view.SignupView;
 import view.ViewManager;
 
 import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-
-import view.ViewManager;
-
-import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 
 public class Main {
@@ -34,14 +28,18 @@ public class Main {
 
         SignupViewModel signupViewModel = new SignupViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
+        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
 
         InMemoryUserDataAccessObject userDataAccessObject;
         userDataAccessObject = new InMemoryUserDataAccessObject();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         HomePage homePage = new HomePage(homePageViewModel);
+        RecipeCreatorView recipeCreatorView = new RecipeCreatorView(recipeCreatorViewModel);
+
         views.add(signupView, signupView.viewName);
         views.add(homePage, homePage.viewName);
+        views.add(recipeCreatorView, recipeCreatorView.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

@@ -20,26 +20,53 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
         super(vc);
     }
 
+
     @Override
     public List<Recipe> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         List<Recipe> recipeLists = new ArrayList<Recipe>();
         JsonNode root = jsonParser.getCodec().readTree(jsonParser);
 
+
         if(root.isArray()){
             for(JsonNode node: root){
-                UUID recipeId = UUID.fromString(node.get("recipeID").asText());
-                UUID userId = node.get("userId").isNull() ? null : UUID.fromString(node.get("userId").asText());
-                String name = node.get("name").asText();
-                String servings = node.get("servings").asText();
-                LocalDateTime dateCreated = LocalDateTime.parse(node.get("dateCreated").asText());
 
-                JsonNode tagNode = node.get("tags");
-                Tag[] tags = new Tag[tagNode.size()];
-                int i = 0;
-                for(JsonNode branch: tagNode) {
-                    tags[i] = (new Tag(branch.asText()));
-                    i++;
+                UUID recipeId = null;
+                UUID userId = null;
+
+                JsonNode recipeIdNode = node.get("recipeId");
+                if (recipeIdNode != null) {
+                    recipeId = UUID.fromString(recipeIdNode.asText());
                 }
+
+                JsonNode userIdNode = node.get("userId");
+                if (userIdNode != null && !userIdNode.isNull()) {
+                    userId = UUID.fromString(userIdNode.asText());
+                }
+
+
+                String name = node.get("title").asText();
+                String servings = node.get("servings").asText();
+
+                LocalDateTime dateCreated = LocalDateTime.now();
+                JsonNode timeIdNode = node.get("recipeId");
+                if (timeIdNode != null) {
+                    dateCreated = LocalDateTime.parse(node.get("dateCreated").asText());
+                }
+
+                Tag[] tags;
+                JsonNode tagNode = node.get("tags");
+                if (tagNode != null) {
+                    tags = new Tag[tagNode.size()];
+                    int i = 0;
+                    for(JsonNode branch: tagNode) {
+                        tags[i] = (new Tag(branch.asText()));
+                        i++;
+                    }
+                }
+                else {
+                    tags = null; //change
+                }
+
 
                 String instructions = node.get("instructions").asText();
 

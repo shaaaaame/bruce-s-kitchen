@@ -5,6 +5,7 @@ public class User {
     private final String username;
 
     private final String password;
+    private final String user_id;
 
     /**
      * Requires: password is valid.
@@ -12,9 +13,10 @@ public class User {
      * @param password
      */
 
-    User(String username, String password) {
+    User(String username, String password, String user_id) {
         this.username = username;
         this.password = password;
+        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -24,6 +26,8 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public String getID() { return user_id; }
 
 }
 

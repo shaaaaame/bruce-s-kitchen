@@ -1,15 +1,13 @@
 package app;
 
-import data_access.FileUserDataAccessObject;
+import data_access.InMemoryUserDataAccessObject;
 import entity.UserFactory;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
+import interface_adapter.homepage.HomePageViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
+import view.HomePage;
 import view.SignupView;
 import view.ViewManager;
-import view.LoginView;
-import view.LoggedInView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,24 +33,15 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
-        LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
+        HomePageViewModel homePageViewModel = new HomePageViewModel();
 
-        FileUserDataAccessObject userDataAccessObject;
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        InMemoryUserDataAccessObject userDataAccessObject;
+        userDataAccessObject = new InMemoryUserDataAccessObject();
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
+        HomePage homePage = new HomePage(homePageViewModel);
         views.add(signupView, signupView.viewName);
-
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
-        views.add(loginView, loginView.viewName);
-
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
-        views.add(loggedInView, loggedInView.viewName);
+        views.add(homePage, homePage.viewName);
 
         viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.firePropertyChanged();

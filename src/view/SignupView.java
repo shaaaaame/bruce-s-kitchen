@@ -64,6 +64,18 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         );
 
         cancel.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(cancel)){
+                            usernameInputField.setText("");
+                            passwordInputField.setText("");
+                            repeatPasswordInputField.setText("");
+                        }
+                    }
+                }
+        );
 
         usernameInputField.addKeyListener(
                 new KeyListener() {
@@ -135,10 +147,18 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.add(buttons);
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        int userChoice = JOptionPane.showConfirmDialog(this, "Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (userChoice == JOptionPane.YES_OPTION) {
+            // User clicked "Yes", close the SignupView
+            Container topLevelContainer = this.getTopLevelAncestor();
+            if (topLevelContainer instanceof Window) {
+                Window window = (Window) topLevelContainer;
+                window.dispose();
+            }
+        }
     }
 
     @Override

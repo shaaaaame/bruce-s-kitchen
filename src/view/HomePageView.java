@@ -2,22 +2,18 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import interface_adapter.homepage.HomePageState;
 import interface_adapter.homepage.HomePageViewModel;
-import interface_adapter.signup.SignupController;
-import interface_adapter.signup.SignupViewModel;
 
-public class HomePage extends JPanel implements ActionListener, PropertyChangeListener {
+public class HomePageView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "homePage";
     public final HomePageViewModel homePageViewModel;
-    public HomePage(HomePageViewModel homePageViewModel){
+    public HomePageView(HomePageViewModel homePageViewModel){
 
         this.homePageViewModel = homePageViewModel;
         homePageViewModel.addPropertyChangeListener(this);

@@ -55,7 +55,11 @@ public class HomePage extends JPanel implements ActionListener, PropertyChangeLi
         jFrame.add(searchField);
         jFrame.add(searchButton);
 
+        ImageIcon duck = new ImageIcon(getClass().getResource("/Resources/peckingduck.jpeg"));
+        JLabel img = new JLabel(duck);
+        jFrame.add(img);
         jFrame.setVisible(true);
+
     }
 
     @Override

@@ -6,4 +6,9 @@ public class Tag {
     public Tag (String tagName){
         this.tagName = tagName;
     }
+
+    @Override
+    public String toString() {
+        return tagName;
+    }
 }

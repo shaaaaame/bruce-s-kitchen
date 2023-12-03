@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import entity.Recipe;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class RecipeSerializer extends StdSerializer<Recipe>{
@@ -20,14 +22,20 @@ public class RecipeSerializer extends StdSerializer<Recipe>{
     @Override
     public void serialize(Recipe recipe, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
+        jsonGenerator.writeStringField("recipeID", recipe.getRecipe_id().toString());
         jsonGenerator.writeStringField("userId", recipe.getUserId().toString());
+        jsonGenerator.writeStringField("name", recipe.name);
+        jsonGenerator.writeStringField("servings", recipe.servings);
         jsonGenerator.writeStringField("dateCreated", recipe.getDate().toString());
-        jsonGenerator.writeObjectFieldStart("ingredients");
+        jsonGenerator.writeStringField("tags", Arrays.toString(recipe.tags));
+        jsonGenerator.writeStringField("instructions", recipe.instructions);
 
-        Map<String, String> ingredients = recipe.getIngredients();
-        for(String ingredient : ingredients.keySet()){
-            jsonGenerator.writeStringField(ingredient, ingredients.get(ingredient).replaceAll("\\P{Print}", ""));
+        jsonGenerator.writeArrayFieldStart("ingredients");
+        List<String > ingredients = recipe.getIngredients();
+        for(String ingredient : ingredients){
+            jsonGenerator.writeString(ingredient);
         }
+        jsonGenerator.writeEndArray();
 
         jsonGenerator.writeEndObject();
         jsonGenerator.writeEndObject();

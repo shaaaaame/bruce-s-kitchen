@@ -28,7 +28,7 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
         if(root.isArray()){
             for(JsonNode node: root){
                 UUID recipeId = UUID.fromString(node.get("recipeID").asText());
-                UUID userId = UUID.fromString(node.get("userId").asText());
+                UUID userId = node.get("userId").isNull() ? null : UUID.fromString(node.get("userId").asText());
                 String name = node.get("name").asText();
                 String servings = node.get("servings").asText();
                 LocalDateTime dateCreated = LocalDateTime.parse(node.get("dateCreated").asText());
@@ -48,11 +48,6 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
                 for (JsonNode ingredientBranch: ingredientNode){
                     ingredients.add(ingredientBranch.asText());
                 }
-
-
-
-
-
                 recipeLists.add(new Recipe(recipeId, userId, name, servings, ingredients, tags, instructions, dateCreated));
             }
 

@@ -1,35 +1,39 @@
 package data_access;
 
 import entity.Recipe;
-import use_case.APIpull.RecipeAPIDataAccessInterface;
+import entity.RecipeFactory;
+import use_case.APIpull.RecipeDataAccessInterface;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.io.IOException;
 import java.net.URI;
+import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.http.HttpClient;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
-
-public class RecipeAPIDataAccessObject implements RecipeAPIDataAccessInterface {
+public class InMemoryRecipeAPIDataAccessObject implements RecipeDataAccessInterface {
 
     private final Map<UUID, Recipe> recipeMap = new HashMap<UUID, Recipe>();
+    private RecipeFactory recipeFactory;
 
+    public InMemoryRecipeAPIDataAccessObject() throws IOException{
+        this.recipeFactory = new RecipeFactory();
+    }
 
     @Override
     public boolean existsByID(UUID identifier) {
         return recipeMap.containsKey(identifier);
     }
 
+
     @Override
     public void save(Recipe recipe) {
 
     }
 
-    public void apiCall(String search){
+    public String apiCall(String search){
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.api-ninjas.com/v1/recipe?query=" + search))
                 .header("X-Api-Key", "zgSAUkuV/RadzPi5Zmg/YQ==3CRbkHrEG4ZKiyhQ")
@@ -42,6 +46,8 @@ public class RecipeAPIDataAccessObject implements RecipeAPIDataAccessInterface {
             e.printStackTrace();
         }
         assert response != null;
-        System.out.println(response.body());
+        return response.body();
     }
+
+
 }

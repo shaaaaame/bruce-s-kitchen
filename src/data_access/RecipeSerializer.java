@@ -23,7 +23,7 @@ public class RecipeSerializer extends StdSerializer<Recipe>{
     public void serialize(Recipe recipe, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeStringField("recipeID", recipe.getRecipe_id().toString());
-        jsonGenerator.writeStringField("userId", recipe.getUserId().toString());
+        jsonGenerator.writeStringField("userId", recipe.getUserId() != null ? recipe.getUserId().toString() : null);
         jsonGenerator.writeStringField("name", recipe.name);
         jsonGenerator.writeStringField("servings", recipe.servings);
         jsonGenerator.writeStringField("dateCreated", recipe.getDate().toString());

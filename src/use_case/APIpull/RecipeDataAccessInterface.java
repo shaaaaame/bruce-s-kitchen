@@ -1,11 +1,10 @@
 package use_case.APIpull;
 
 import entity.Recipe;
-import entity.User;
 
 import java.util.UUID;
 
-public interface RecipeAPIDataAccessInterface {
+public interface RecipeDataAccessInterface {
     boolean existsByID(UUID identifier);
     void save(Recipe recipe);
 }

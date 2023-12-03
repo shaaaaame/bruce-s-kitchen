@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.recipeCreator.RecipeCreatorController;
+import interface_adapter.recipeCreator.RecipeCreatorState;
 import interface_adapter.recipeCreator.RecipeCreatorViewModel;
 import javax.swing.*;
 import java.awt.*;
@@ -13,14 +15,49 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
 
     public final String viewName = "recipeCreator";
     private final RecipeCreatorViewModel recipeCreatorViewModel;
+    private final RecipeCreatorController recipeCreatorController;
 
-    public RecipeCreatorView(RecipeCreatorViewModel recipeCreatorViewModel) {
+    public RecipeCreatorView(RecipeCreatorController recipeCreatorController, RecipeCreatorViewModel recipeCreatorViewModel) {
 
         this.recipeCreatorViewModel = recipeCreatorViewModel;
+        this.recipeCreatorController = recipeCreatorController;
         recipeCreatorViewModel.addPropertyChangeListener(this);
 
-        JFrame meow = new JFrame("Create your own Recipe");
-        meow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JLabel title = new JLabel(RecipeCreatorViewModel.TITLE_LABEL);
+        JPanel titlespace = new JPanel();
+
+        JTextField name = new JTextField();
+        LabelTextPanel nameP = new LabelTextPanel(new JLabel("Name:"), name);
+
+        JList<String> ingredientsP = new JList<>();
+        JLabel ingredientText = new JLabel("Ingredients: ");
+        JScrollPane ingredientScroll = new JScrollPane(ingredientsP);
+        JPanel ingredientBox = new JPanel();
+
+        JPanel buttons = new JPanel();
+        JButton doneButton = new JButton("Done!");
+        JButton removeIng = new JButton("Remove ingredient");
+        JButton addIng = new JButton("Add ingredient");
+
+        doneButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (e.getSource().equals(doneButton)){
+                            RecipeCreatorState curr = recipeCreatorViewModel.getState();
+                            recipeCreatorController.execute(
+                                curr.getName(),
+                                    curr.getIngredients(),
+                                    curr.getInstructions(),
+                                    curr.getServings(),
+                                    curr.getUser_id(),
+                                    curr.getTags()
+                            );
+                        }
+                    }
+                }
+        );
+        /*
 
         JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
         JLabel nameLabel = new JLabel("Name:");
@@ -59,6 +96,7 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
         meow.add(panel);
         meow.setSize(400, 300);
         meow.setVisible(true);
+        */
     }
         @Override
         public void actionPerformed(ActionEvent e) {

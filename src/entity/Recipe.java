@@ -42,7 +42,7 @@ public class Recipe {
     public UUID getUserId(){ return this.user_id; }
     public LocalDateTime getDate(){ return this.dateCreated; }
     public List<String> getIngredients() { return this.ingredients; }
-
-
+    public String getName() { return this.name; }
+    public String getInstructions(){ return this.instructions}
 
 }

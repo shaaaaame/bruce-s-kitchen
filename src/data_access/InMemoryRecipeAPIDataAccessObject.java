@@ -1,11 +1,12 @@
 package data_access;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import entity.Recipe;
 import entity.RecipeFactory;
-import use_case.recipe_search.RecipeSearchDataAccessInterface;
+import use_case.APIpull.RecipeDataAccessInterface;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccessInterface {
+public class InMemoryRecipeAPIDataAccessObject implements RecipeDataAccessInterface {
 
     private final Map<UUID, Recipe> recipeMap = new HashMap<UUID, Recipe>();
     private RecipeFactory recipeFactory;
@@ -27,7 +28,7 @@ public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccess
 
     }
 
-    public List<Recipe> searchRecipe(String search) throws JsonProcessingException {
+    public void searchRecipe(String search) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule module = new SimpleModule();
         module.addDeserializer(List.class, new RecipeDeserializer());
@@ -42,7 +43,6 @@ public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccess
         } finally {
             addToRecipeMap(recipeList);
         }
-        return recipeList;
     }
 
     public void addToRecipeMap(List<Recipe> recipeList){

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import entity.Recipe;
 import entity.RecipeFactory;
-import use_case.recipe_search.RecipeSearchDataAccessInterface;
+import use_case.APIpull.RecipeDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.*;
 import java.io.IOException;
 
 
-public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterface {
+public class RecipeFileDataAccessObject implements RecipeDataAccessInterface {
 
     private final Map<UUID, Recipe> recipeMap = new HashMap<UUID, Recipe>();
     private final String JSON_PATH = "./recipesList.json";

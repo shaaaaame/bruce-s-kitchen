@@ -39,6 +39,6 @@ public class LoginPresenter implements LoginOutputBoundary {
             LoginState loginState = loginViewModel.getState();
             loginState.setLoginError(error);
             loginViewModel.firePropertyChanged();
-            System.out.println("Login Failed. Try again D:");
+            System.out.println("Login Failed. " + error);
         }
 }

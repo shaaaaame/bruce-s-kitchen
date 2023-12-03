@@ -63,7 +63,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
         cancel.addActionListener(
                 new ActionListener() {
                     @Override

@@ -19,7 +19,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
-        JFrame app = new JFrame("User");
+        JFrame app = new JFrame("Bruce's Kitchen");
         app.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         CardLayout cardLayout = new CardLayout();
@@ -44,9 +44,9 @@ public class Main {
         }
 
         FileGroceryListDataAccessObject groceryListDataAccessObject;
-        try{
+        try {
             groceryListDataAccessObject = new FileGroceryListDataAccessObject();
-        }catch (IOException e ){
+        } catch (IOException e){
             throw new RuntimeException("Unable to read groceryList.json");
         }
 
@@ -65,7 +65,7 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(homePageView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

@@ -11,6 +11,7 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
 import interface_adapter.homepage.HomePageViewModel;
+import view.MenuBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +25,13 @@ public class Main {
 
         CardLayout cardLayout = new CardLayout();
 
-        JPanel views = new JPanel(cardLayout);
-        app.add(views);
-
         ViewManagerModel viewManagerModel = new ViewManagerModel();
+
+        JPanel views = new JPanel(cardLayout);
+        app.setLayout(new BorderLayout());
+        app.add(new MenuBar(viewManagerModel), BorderLayout.NORTH);
+        app.add(views, BorderLayout.CENTER);
+
         new ViewManager(views, cardLayout, viewManagerModel);
 
         SignupViewModel signupViewModel = new SignupViewModel();
@@ -59,7 +63,7 @@ public class Main {
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        HomePageView homePageView = new HomePageView(homePageViewModel);
+        HomePageView homePageView = new HomePageView(viewManagerModel, homePageViewModel);
         views.add(homePageView, homePageView.viewName);
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);

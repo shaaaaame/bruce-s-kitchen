@@ -87,16 +87,16 @@ public class MenuBar extends JMenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Show Grocery List");
-=
-        browseRecipe.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewManagerModel.setActiveView("Recipe Browse");
-                viewManagerModel.firePropertyChanged();
+                browseRecipe.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Browse");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                });
             }
         });
 
-<<<<<<< HEAD
         createRecipe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,8 +104,15 @@ public class MenuBar extends JMenuBar  {
                 viewManagerModel.firePropertyChanged();
             }
         });
-=======
->>>>>>> 1a4dc76 (Completed browse recipe)
 
+        bookmarked.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Bookmark");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                }
+        );
     }
 }

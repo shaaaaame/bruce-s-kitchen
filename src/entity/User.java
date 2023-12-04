@@ -40,6 +40,10 @@ public class User {
     public List<UUID> getBookmarkedRecipes() {
         return bookmarkedRecipes;
     }
+
+    public void addBookmarkedRecipe(UUID recipeId){
+        this.bookmarkedRecipes.add(recipeId);
+    }
 }
 
 

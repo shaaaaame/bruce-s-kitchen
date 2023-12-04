@@ -2,15 +2,24 @@ package view.recipe;
 
 import entity.Recipe;
 import entity.Tag;
+import interface_adapter.recipe_bookmark.RecipeBookmarkController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 
 public class RecipeCard extends JPanel {
 
-    public RecipeCard(Recipe recipe){
-
+    Recipe recipe;
+    RecipeBookmarkController recipeBookmarkController;
+    String username;
+    public RecipeCard(Recipe recipe, RecipeBookmarkController recipeBookmarkController, String username){
+        this.recipe = recipe;
+        this.recipeBookmarkController = recipeBookmarkController;
+        this.username = username;
+        JButton bookmark = new JButton("Bookmark");
         JLabel nameLabel = new JLabel(recipe.getName());
         JLabel servingsLabel = new JLabel(recipe.servings);
 
@@ -23,6 +32,14 @@ public class RecipeCard extends JPanel {
         JLabel dateCreatedLabel = new JLabel(recipe.getDate().toLocalDate().toString());
         JPanel content = new JPanel();
 
+        bookmark.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bookmarkRecipe();
+                    }
+                }
+        );
 
         content.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 
@@ -48,6 +65,9 @@ public class RecipeCard extends JPanel {
 
 
         content.add(nameLabel);
+        if (recipeBookmarkController != null){
+            content.add(bookmark);
+        }
         content.add(dateCreatedLabel);
         content.add(servingsLabel);
         content.add(ingredientLabel);
@@ -74,4 +94,11 @@ public class RecipeCard extends JPanel {
 
         return sb.toString();
     }
+
+    private void bookmarkRecipe(){
+        recipeBookmarkController.execute(recipe.getRecipe_id(), this.username);
+
+    }
+
+
 }

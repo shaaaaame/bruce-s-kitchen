@@ -3,10 +3,14 @@ package app;
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryRecipeAPIDataAccessObject;
+import data_access.RecipeFileDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.recipe_bookmark.GetBookmarkedController;
+import interface_adapter.recipe_bookmark.GetBookmarkedViewModel;
+import interface_adapter.recipe_browse.RecipeBrowseViewModel;
 import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -46,6 +50,8 @@ public class Main {
         HomePageViewModel homePageViewModel = new HomePageViewModel();
         ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
+        RecipeBrowseViewModel recipeBrowseViewModel = new RecipeBrowseViewModel();
+        GetBookmarkedViewModel getBookmarkedViewModel = new GetBookmarkedViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -68,6 +74,13 @@ public class Main {
             throw new RuntimeException("Unable to pull from API");
         }
 
+        RecipeFileDataAccessObject recipeFileDataAccessObject;
+        try{
+            recipeFileDataAccessObject = new RecipeFileDataAccessObject();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
@@ -83,8 +96,17 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
       
-        RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
+        RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject, userDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
+
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
+
+        RecipeBrowseView recipeBrowseView = RecipeBrowseUseCaseFactory.create(viewManagerModel, recipeBrowseViewModel, recipeSearchViewModel, recipeFileDataAccessObject, recipeSearchDataAccessObject);
+        views.add(recipeBrowseView, showGroceryListView.viewName);
+
+        RecipeBookmarkView recipeBookmarkView = RecipeBookmarkUseCaseFactory.create(viewManagerModel, getBookmarkedViewModel, recipeSearchDataAccessObject, userDataAccessObject);
+        views.add(recipeBookmarkView, recipeBookmarkView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
@@ -97,13 +119,14 @@ public class Main {
                         menuBar.hide();
                     }
                 }
+                if(evt.getSource().equals(recipeSearchViewModel)){
+                    recipeBookmarkView.firePropertyChanged();
+                }
             }
         });
 
-        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
-        views.add(showGroceryListView, showGroceryListView.viewName);
-//
-//        viewManagerModel.setActiveView(showGroceryListView.viewName);
+
+        viewManagerModel.setActiveView(recipeBookmarkView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

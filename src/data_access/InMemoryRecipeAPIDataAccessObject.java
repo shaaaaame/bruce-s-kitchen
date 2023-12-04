@@ -46,11 +46,15 @@ public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccess
     }
 
     public void addToRecipeMap(List<Recipe> recipeList){
-        for (Recipe  recipe: recipeList){
+        for (Recipe recipe: recipeList){
             System.out.println(recipe.name);
-            recipeMap.put(recipe.getRecipe_id(), recipe);
+            this.recipeMap.put(recipe.getRecipe_id(), recipe);
         }
     }
+    public Map<UUID, Recipe> getRecipeMap() {
+        return this.recipeMap;
+    }
+
 
     @Override
     public boolean existsByID(UUID identifier) {
@@ -60,7 +64,7 @@ public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccess
 
     @Override
     public void save(Recipe recipe) {
-        recipeMap.put(recipe.getRecipe_id(), recipe);
+        this.recipeMap.put(recipe.getRecipe_id(), recipe);
     }
 
     public static String apiCall(String myString){

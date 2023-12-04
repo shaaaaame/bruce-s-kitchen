@@ -12,4 +12,6 @@ public class RecipeBrowseOutputData {
         this.recipeMap = recipeMap;
         this.useCaseFailed = useCaseFailed;
     }
+
+    public Map<UUID, Recipe> getRecipeMap() {return this.recipeMap;}
 }

@@ -1,12 +1,9 @@
-package interface_adapter.show_grocery_list;
+package interface_adapter.grocery_list_show;
 
 import entity.GroceryList;
-import interface_adapter.grocery_list.GroceryListState;
-import interface_adapter.grocery_list.GroceryListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ShowGroceryListState {
     private List<GroceryList> groceryLists = new ArrayList<GroceryList>();

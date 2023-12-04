@@ -87,6 +87,9 @@ public class MenuBar extends JMenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Recipe Browse");
+            }
+        });
+
         showGroceryLists.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

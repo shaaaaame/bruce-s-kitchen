@@ -1,11 +1,8 @@
-package interface_adapter.show_grocery_list;
+package interface_adapter.grocery_list_show;
 
-import use_case.grocery_list.GroceryListInputBoundary;
-import use_case.grocery_list.GroceryListInputData;
-import use_case.grocery_list.ShowGroceryListInputBoundary;
-import use_case.grocery_list.ShowGroceryListInputData;
+import use_case.grocery_list_show.ShowGroceryListInputBoundary;
+import use_case.grocery_list_show.ShowGroceryListInputData;
 
-import java.util.List;
 import java.util.UUID;
 
 public class ShowGroceryListController {

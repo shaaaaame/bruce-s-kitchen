@@ -1,11 +1,9 @@
-package interface_adapter.recipeCreator;
+package interface_adapter.recipe_create;
 
-import entity.Recipe;
-import entity.RecipeFactory;
-import use_case.createRecipe.CreateRecipeInputBoundary;
+import use_case.recipe_create.CreateRecipeInputBoundary;
 import java.util.UUID;
 import entity.Tag;
-import use_case.createRecipe.RecipeInputData;
+import use_case.recipe_create.RecipeInputData;
 
 import java.util.List;
 

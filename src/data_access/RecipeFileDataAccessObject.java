@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import entity.Recipe;
 import entity.RecipeFactory;
-import use_case.createRecipe.CreateRecipeDataAccessInterface;
+import use_case.recipe_create.CreateRecipeDataAccessInterface;
 import use_case.recipe_search.RecipeSearchDataAccessInterface;
 
 import java.io.BufferedReader;

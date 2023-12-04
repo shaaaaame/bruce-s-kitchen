@@ -1,9 +1,9 @@
 package view;
 
 import interface_adapter.grocery_list.GroceryListState;
-import interface_adapter.recipeCreator.RecipeCreatorController;
-import interface_adapter.recipeCreator.RecipeCreatorState;
-import interface_adapter.recipeCreator.RecipeCreatorViewModel;
+import interface_adapter.recipe_create.RecipeCreatorController;
+import interface_adapter.recipe_create.RecipeCreatorState;
+import interface_adapter.recipe_create.RecipeCreatorViewModel;
 import view.grocery_list.AddIngredientPanel;
 
 import javax.swing.*;

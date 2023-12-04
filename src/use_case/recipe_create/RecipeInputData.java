@@ -1,10 +1,8 @@
-package use_case.createRecipe;
-
-import entity.Recipe;
+package use_case.recipe_create;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.List;
+
 import entity.Tag;
 public class RecipeInputData {
     private String name;

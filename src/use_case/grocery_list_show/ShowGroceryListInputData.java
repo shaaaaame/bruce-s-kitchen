@@ -1,4 +1,4 @@
-package use_case.grocery_list;
+package use_case.grocery_list_show;
 
 import view.ShowGroceryListView;
 

@@ -1,4 +1,4 @@
-package interface_adapter.recipeCreator;
+package interface_adapter.recipe_create;
 
 import entity.Tag;
 import java.util.UUID;

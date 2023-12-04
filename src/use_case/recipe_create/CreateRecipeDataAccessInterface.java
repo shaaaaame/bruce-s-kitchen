@@ -1,4 +1,4 @@
-package use_case.createRecipe;
+package use_case.recipe_create;
 
 import entity.Recipe;
 import java.util.UUID;

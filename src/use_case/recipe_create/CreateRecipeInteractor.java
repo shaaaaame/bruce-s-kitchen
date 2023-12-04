@@ -1,10 +1,9 @@
-package use_case.createRecipe;
+package use_case.recipe_create;
 
 import entity.Recipe;
 import entity.RecipeFactory;
 import java.time.LocalDateTime;
-import java.util.List;
-import entity.Tag;
+
 public class CreateRecipeInteractor implements CreateRecipeInputBoundary{
 
     final CreateRecipeDataAccessInterface createRecipeDataAccessObject;

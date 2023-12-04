@@ -1,13 +1,8 @@
-package interface_adapter.show_grocery_list;
+package interface_adapter.grocery_list_show;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.logged_in.LoggedInState;
-import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login.LoginViewModel;
-import use_case.grocery_list.ShowGroceryListInputBoundary;
-import use_case.grocery_list.ShowGroceryListInputData;
-import use_case.grocery_list.ShowGroceryListOutputBoundary;
-import use_case.grocery_list.ShowGroceryListOutputData;
+import use_case.grocery_list_show.ShowGroceryListOutputBoundary;
+import use_case.grocery_list_show.ShowGroceryListOutputData;
 
 public class ShowGroceryListPresenter implements ShowGroceryListOutputBoundary {
 

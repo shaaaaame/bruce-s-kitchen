@@ -1,7 +1,7 @@
-package interface_adapter.recipeCreator;
+package interface_adapter.recipe_create;
 import interface_adapter.ViewManagerModel;
-import use_case.createRecipe.CreateRecipeOutputBoundary;
-import use_case.createRecipe.CreateRecipeOutputDta;
+import use_case.recipe_create.CreateRecipeOutputBoundary;
+import use_case.recipe_create.CreateRecipeOutputDta;
 
 public class RecipeCreatePresenter implements CreateRecipeOutputBoundary{
 

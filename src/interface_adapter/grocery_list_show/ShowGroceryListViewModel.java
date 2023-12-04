@@ -1,4 +1,4 @@
-package interface_adapter.show_grocery_list;
+package interface_adapter.grocery_list_show;
 
 import interface_adapter.ViewModel;
 

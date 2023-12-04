@@ -1,11 +1,9 @@
 package view;
 
 import entity.GroceryList;
-import interface_adapter.grocery_list.GroceryListState;
-import interface_adapter.grocery_list.GroceryListViewModel;
-import interface_adapter.show_grocery_list.ShowGroceryListController;
-import interface_adapter.show_grocery_list.ShowGroceryListState;
-import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
+import interface_adapter.grocery_list_show.ShowGroceryListController;
+import interface_adapter.grocery_list_show.ShowGroceryListState;
+import interface_adapter.grocery_list_show.ShowGroceryListViewModel;
 import view.grocery_list.SingleGroceryList;
 
 import javax.swing.*;

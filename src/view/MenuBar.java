@@ -93,7 +93,13 @@ public class MenuBar extends JMenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Show Grocery List");
-                viewManagerModel.firePropertyChanged();
+                browseRecipe.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Browse");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                });
             }
         });
 
@@ -105,5 +111,14 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
+        bookmarked.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Bookmark");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                }
+        );
     }
 }

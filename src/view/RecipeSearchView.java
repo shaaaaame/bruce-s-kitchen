@@ -2,6 +2,8 @@ package view;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import entity.Recipe;
+import interface_adapter.ViewManagerModel;
+import interface_adapter.recipe_bookmark.RecipeBookmarkController;
 import interface_adapter.recipe_search.RecipeSearchController;
 import interface_adapter.recipe_search.RecipeSearchState;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
@@ -21,13 +23,19 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
 
     public final String viewName = "Recipe Search";
     private final RecipeSearchViewModel recipeSearchViewModel;
+    private final ViewManagerModel viewManagerModel;
     private final RecipeSearchController recipeSearchController;
+    private final RecipeBookmarkController recipeBookmarkController;
     JPanel recipeCards = new JPanel();
 
 
-    public RecipeSearchView(RecipeSearchViewModel recipeSearchViewModel, RecipeSearchController recipeSearchController) {
+    public RecipeSearchView(RecipeSearchViewModel recipeSearchViewModel, ViewManagerModel viewManagerModel,
+                            RecipeSearchController recipeSearchController,
+                            RecipeBookmarkController recipeBookmarkController) {
         this.recipeSearchViewModel = recipeSearchViewModel;
         this.recipeSearchController = recipeSearchController;
+        this.recipeBookmarkController = recipeBookmarkController;
+        this.viewManagerModel = viewManagerModel;
 
         recipeSearchViewModel.addPropertyChangeListener(this);
 
@@ -131,9 +139,10 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
 
     private void updateListData(List<Recipe> recipes){
         this.recipeCards.removeAll();
+        String username = viewManagerModel.getCurentUser();
 
         for(int i = 0; i < recipes.size(); i++){
-            this.recipeCards.add(new RecipeCard(recipes.get(i)));
+            this.recipeCards.add(new RecipeCard(recipes.get(i), recipeBookmarkController, username));
         }
 
         this.recipeCards.revalidate();

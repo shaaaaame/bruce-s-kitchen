@@ -56,6 +56,9 @@ public class InMemoryRecipeAPIDataAccessObject implements RecipeSearchDataAccess
     }
 
 
+    public Recipe getById(UUID id){
+        return this.recipeMap.get(id);
+    }
     @Override
     public boolean existsByID(UUID identifier) {
         return recipeMap.containsKey(identifier);

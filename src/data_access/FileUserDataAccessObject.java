@@ -60,7 +60,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         }
     }
 
-    private void save() {
+    public void save() {
         try {
             objectMapper.writeValue(jsonFile, accounts.values().toArray(new User[0]));
 

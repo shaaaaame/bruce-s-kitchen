@@ -4,11 +4,15 @@ import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryRecipeAPIDataAccessObject;
 import data_access.RecipeFileDataAccessObject;
-import data_access.RecileFileDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.recipe_browse.RecipeBrowseViewModel;
+import interface_adapter.recipe_bookmark.GetBookmarkedController;
+import interface_adapter.recipe_bookmark.GetBookmarkedViewModel;
+import interface_adapter.recipe_browse.RecipeBrowseViewModel;
+import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
 import interface_adapter.recipe_create.RecipeCreatorViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -47,8 +51,10 @@ public class Main {
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
-        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
+        RecipeBrowseViewModel recipeBrowseViewModel = new RecipeBrowseViewModel();
+        GetBookmarkedViewModel getBookmarkedViewModel = new GetBookmarkedViewModel();
 
+        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
         FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.json", new UserFactory());
@@ -77,6 +83,13 @@ public class Main {
             throw new RuntimeException("Unable to pull from API");
         }
 
+        RecipeFileDataAccessObject recipeBrowseDataAccessObject;
+        try{
+            recipeBrowseDataAccessObject = new RecipeFileDataAccessObject();
+        } catch (IOException e){
+            throw new RuntimeException("Unable to read recipeMap");
+        }
+
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
@@ -91,27 +104,40 @@ public class Main {
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
-
-        RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
+      
+        RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject, userDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
+
+        RecipeBrowseView recipeBrowseView = RecipeBrowseUseCaseFactory.create(viewManagerModel, recipeBrowseViewModel, recipeSearchViewModel, recipeBrowseDataAccessObject, recipeSearchDataAccessObject);
+        views.add(recipeBrowseView, recipeBrowseView.viewName);
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
+
+        RecipeBookmarkView recipeBookmarkView = RecipeBookmarkUseCaseFactory.create(viewManagerModel, getBookmarkedViewModel, recipeSearchDataAccessObject, userDataAccessObject);
+        views.add(recipeBookmarkView, recipeBookmarkView.viewName);
+
 
         RecipeCreatorView recipeCreatorView = CreateRecipeUseCaseFactory.create(viewManagerModel, recipeCreatorViewModel, recipeFileDataAccessObject);
         views.add(recipeCreatorView, recipeCreatorView.viewName);
-
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getSource().equals(viewManagerModel)){
+                    recipeBrowseView.update();
                     if (viewManagerModel.isLoggedIn()){
                         menuBar.show();
                     }else{
                         menuBar.hide();
                     }
                 }
+                if(evt.getSource().equals(recipeSearchViewModel)){
+                    recipeBookmarkView.firePropertyChanged();
+                }
             }
         });
+
 
         viewManagerModel.firePropertyChanged();
 

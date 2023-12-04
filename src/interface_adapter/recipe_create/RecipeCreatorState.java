@@ -1,4 +1,4 @@
-package interface_adapter.recipeCreator;
+package interface_adapter.recipe_create;
 
 import entity.Tag;
 import java.util.UUID;
@@ -14,6 +14,7 @@ public class RecipeCreatorState {
     private String servings = "0";
     private UUID user_id;
     private List<String> ingredients = new ArrayList<>();
+    private UUID recipe_Id;
 
     public RecipeCreatorState(){
     }

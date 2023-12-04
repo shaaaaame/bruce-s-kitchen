@@ -15,15 +15,14 @@ import java.util.*;
 import java.io.IOException;
 
 
-public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterface {
+public class RecileFileDataAccessObject implements CreateRecipeDataAccessInterface {
 
     private final Map<UUID, Recipe> recipeMap = new HashMap<UUID, Recipe>();
-
-    private final String JSON_PATH = "./recipesList.json";
+    private final String JSON_PATH = "./recipe.json";
     private final File jsonFile;
     private RecipeFactory recipeFactory;
 
-    public RecipeFileDataAccessObject() throws IOException {
+    public RecileFileDataAccessObject() throws IOException {
         this.recipeFactory = new RecipeFactory();
         jsonFile = new File(JSON_PATH);
         jsonFile.createNewFile();
@@ -34,11 +33,8 @@ public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterfa
             initializeRecipeMap();
         }
     }
-
     @Override
-    public boolean existsByID(UUID identifier) {
-        return recipeMap.containsKey(identifier);
-    }
+    public boolean exitById(UUID id) { return recipeMap.containsKey(id); }
 
     @Override
     public void save(Recipe recipe) {
@@ -77,11 +73,6 @@ public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterfa
         recipeMap.remove(id);
         this.save();
     }
-
-    public Map<UUID, Recipe> getRecipeMap() {
-        return recipeMap;
-    }
-
 
     /*
     initializing recipe map from json file

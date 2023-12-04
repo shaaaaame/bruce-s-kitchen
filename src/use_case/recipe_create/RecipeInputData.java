@@ -1,10 +1,8 @@
-package use_case.createRecipe;
-
-import entity.Recipe;
+package use_case.recipe_create;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.List;
+
 import entity.Tag;
 public class RecipeInputData {
     private String name;
@@ -14,7 +12,7 @@ public class RecipeInputData {
     private UUID user_id;
     private Tag[] tags;
 
-    public RecipeInputData(String name, String servings, List<String> ingredients, String instructions, UUID user_id, Tag[] tags) {
+    public RecipeInputData(UUID user_id, String name, String servings, List<String> ingredients, Tag[] tags, String instructions) {
         this.name = name;
         this.ingredients = ingredients;
         this.instructions = instructions;

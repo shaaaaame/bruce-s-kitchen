@@ -1,4 +1,4 @@
-package use_case.createRecipe;
+package use_case.recipe_create;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -9,11 +9,11 @@ public class CreateRecipeOutputDta {
     private LocalDateTime dateCreated;
     private String name;
 
-    CreateRecipeOutputDta(String instructions, List<String> ingredients, String name, LocalDateTime dateCreated) {
-        this.ingredients = ingredients;
+    CreateRecipeOutputDta(String name, LocalDateTime dateCreated) {
         this.name = name;
-        this.instructions = instructions;
         this.dateCreated = dateCreated;
     }
+    public LocalDateTime getDateCreated() { return this.dateCreated; }
+    public String getName() { return this.name; }
 
 }

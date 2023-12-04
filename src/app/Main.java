@@ -8,14 +8,12 @@ import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-<<<<<<< HEAD
 import interface_adapter.recipe_browse.RecipeBrowseViewModel;
-=======
 import interface_adapter.recipe_bookmark.GetBookmarkedController;
 import interface_adapter.recipe_bookmark.GetBookmarkedViewModel;
 import interface_adapter.recipe_browse.RecipeBrowseViewModel;
 import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
->>>>>>> e7ec1d882697474bedd25da198d295d630f783dc
+import interface_adapter.recipe_create.RecipeCreatorViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -52,14 +50,11 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
-        ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
         RecipeBrowseViewModel recipeBrowseViewModel = new RecipeBrowseViewModel();
-<<<<<<< HEAD
-=======
         GetBookmarkedViewModel getBookmarkedViewModel = new GetBookmarkedViewModel();
->>>>>>> e7ec1d882697474bedd25da198d295d630f783dc
 
+        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
         FileUserDataAccessObject userDataAccessObject;
         try {
             userDataAccessObject = new FileUserDataAccessObject("./users.json", new UserFactory());
@@ -74,6 +69,13 @@ public class Main {
             throw new RuntimeException("Unable to read groceryList.json");
         }
 
+        RecileFileDataAccessObject recipeFileDataAccessObject;
+        try{
+            recipeFileDataAccessObject = new RecileFileDataAccessObject();
+        } catch (IOException e){
+            throw new RuntimeException("Unable to meow");
+        }
+
         InMemoryRecipeAPIDataAccessObject recipeSearchDataAccessObject;
         try{
             recipeSearchDataAccessObject = new InMemoryRecipeAPIDataAccessObject();
@@ -81,7 +83,6 @@ public class Main {
             throw new RuntimeException("Unable to pull from API");
         }
 
-<<<<<<< HEAD
         RecipeFileDataAccessObject recipeBrowseDataAccessObject;
         try{
             recipeBrowseDataAccessObject = new RecipeFileDataAccessObject();
@@ -89,16 +90,6 @@ public class Main {
             throw new RuntimeException("Unable to read recipeMap");
         }
 
-
-=======
-        RecipeFileDataAccessObject recipeFileDataAccessObject;
-        try{
-            recipeFileDataAccessObject = new RecipeFileDataAccessObject();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
->>>>>>> e7ec1d882697474bedd25da198d295d630f783dc
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
@@ -117,19 +108,17 @@ public class Main {
         RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject, userDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
 
-<<<<<<< HEAD
         RecipeBrowseView recipeBrowseView = RecipeBrowseUseCaseFactory.create(viewManagerModel, recipeBrowseViewModel, recipeSearchViewModel, recipeBrowseDataAccessObject, recipeSearchDataAccessObject);
         views.add(recipeBrowseView, recipeBrowseView.viewName);
-=======
         ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
         views.add(showGroceryListView, showGroceryListView.viewName);
 
-        RecipeBrowseView recipeBrowseView = RecipeBrowseUseCaseFactory.create(viewManagerModel, recipeBrowseViewModel, recipeSearchViewModel, recipeFileDataAccessObject, recipeSearchDataAccessObject);
-        views.add(recipeBrowseView, showGroceryListView.viewName);
-
         RecipeBookmarkView recipeBookmarkView = RecipeBookmarkUseCaseFactory.create(viewManagerModel, getBookmarkedViewModel, recipeSearchDataAccessObject, userDataAccessObject);
         views.add(recipeBookmarkView, recipeBookmarkView.viewName);
->>>>>>> e7ec1d882697474bedd25da198d295d630f783dc
+
+
+        RecipeCreatorView recipeCreatorView = CreateRecipeUseCaseFactory.create(viewManagerModel, recipeCreatorViewModel, recipeFileDataAccessObject);
+        views.add(recipeCreatorView, recipeCreatorView.viewName);
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
@@ -150,7 +139,6 @@ public class Main {
         });
 
 
-        viewManagerModel.setActiveView(recipeBookmarkView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

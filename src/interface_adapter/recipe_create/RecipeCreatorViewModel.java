@@ -1,7 +1,5 @@
-package interface_adapter.recipeCreator;
+package interface_adapter.recipe_create;
 import interface_adapter.ViewModel;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 public class RecipeCreatorViewModel extends ViewModel{
 
@@ -10,9 +8,7 @@ public class RecipeCreatorViewModel extends ViewModel{
     private RecipeCreatorState state = new RecipeCreatorState();
     public void setState(RecipeCreatorState state) { this.state = state; }
     public RecipeCreatorViewModel() {
-        super("recipeCreator");
+        super("Create Recipe");
     }
-    public RecipeCreatorState getState() {
-        return state;
-    }
+    public RecipeCreatorState getState() { return state; }
 }

@@ -1,17 +1,17 @@
 package view;
 
 import entity.GroceryList;
-import interface_adapter.grocery_list.GroceryListState;
-import interface_adapter.grocery_list.GroceryListViewModel;
-import interface_adapter.show_grocery_list.ShowGroceryListController;
-import interface_adapter.show_grocery_list.ShowGroceryListState;
-import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
+import interface_adapter.grocery_list_show.ShowGroceryListController;
+import interface_adapter.grocery_list_show.ShowGroceryListState;
+import interface_adapter.grocery_list_show.ShowGroceryListViewModel;
 import view.grocery_list.SingleGroceryList;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShowGroceryListView extends JPanel implements PropertyChangeListener {
+public class ShowGroceryListView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Show Grocery List";
     private final ShowGroceryListViewModel showGroceryListViewModel;
     private final ShowGroceryListController showGroceryListController;
@@ -112,6 +112,11 @@ public class ShowGroceryListView extends JPanel implements PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }

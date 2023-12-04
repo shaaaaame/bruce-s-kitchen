@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ShowGroceryListView extends JPanel implements PropertyChangeListener {
-    public final String viewName = "Grocery List";
+    public final String viewName = "Show Grocery List";
     private final ShowGroceryListViewModel showGroceryListViewModel;
     private final ShowGroceryListController showGroceryListController;
 

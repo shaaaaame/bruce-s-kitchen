@@ -54,13 +54,16 @@ public class FileGroceryListDataAccessObject implements GroceryListDataAccessInt
         } catch (IOException e){
             throw new RuntimeException();
         }
+    }
 
+    public List<GroceryList> getAll(){
+        return (List<GroceryList>) groceryListMap.values();
     }
 
     public GroceryList getByGroceryId(UUID id){
         return groceryListMap.get(id);
     }
-    public GroceryList[] getByUserId(UUID userId) {
+    public List<GroceryList> getByUserId (UUID userId) {
         List<GroceryList> groceryLists = new ArrayList<GroceryList>();
         for(GroceryList groceryList : groceryListMap.values()){
             if (groceryList.getUserId() == userId){
@@ -68,7 +71,7 @@ public class FileGroceryListDataAccessObject implements GroceryListDataAccessInt
             }
         }
 
-        return groceryLists.toArray(new GroceryList[]{});
+        return groceryLists;
     }
 
     public void deleteGroceryList(UUID id){

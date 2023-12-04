@@ -6,7 +6,7 @@ import java.beans.PropertyChangeSupport;
 
 public class ViewManagerModel {
     private String activeViewName;
-    private boolean isLoggedIn = false;
+    private boolean isLoggedIn = true;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public String getActiveView() {

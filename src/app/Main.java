@@ -44,7 +44,7 @@ public class Main {
 
         FileUserDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
+            userDataAccessObject = new FileUserDataAccessObject("./users.json", new UserFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,7 +71,7 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(homePageView.viewName);
+        viewManagerModel.setActiveView(signupView.viewName);
 //        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
 //            @Override
 //            public void propertyChange(PropertyChangeEvent evt) {

@@ -7,14 +7,14 @@ import java.util.List;
 import entity.Tag;
 public class CreateRecipeInteractor implements CreateRecipeInputBoundary{
 
-    final CreateRecipeDataAccessInterface createRecipeDataAccessInterface;
+    final CreateRecipeDataAccessInterface createRecipeDataAccessObject;
     final RecipeFactory recipeFactory;
     final CreateRecipeOutputBoundary createRecipePresenter;
 
-    public CreateRecipeInteractor(CreateRecipeDataAccessInterface createRecipeDataAccessInterface,
+    public CreateRecipeInteractor(CreateRecipeDataAccessInterface createRecipeDataAccessObject,
                                   RecipeFactory recipeFactory,
                                   CreateRecipeOutputBoundary createRecipeOutputBoundary){
-        this.createRecipeDataAccessInterface = createRecipeDataAccessInterface;
+        this.createRecipeDataAccessObject = createRecipeDataAccessObject;
         this.recipeFactory = recipeFactory;
         this.createRecipePresenter = createRecipeOutputBoundary;
     }
@@ -29,11 +29,9 @@ public class CreateRecipeInteractor implements CreateRecipeInputBoundary{
                 recipeInputData.getInstructions(),
                 LocalDateTime.now()
         );
-        createRecipeDataAccessInterface.save(recipe);
+        createRecipeDataAccessObject.save(recipe);
 
         CreateRecipeOutputDta createRecipeOutputDta = new CreateRecipeOutputDta(
-                recipe.getInstructions(),
-                recipe.getIngredients(),
                 recipe.getName(),
                 recipe.getDate()
         );

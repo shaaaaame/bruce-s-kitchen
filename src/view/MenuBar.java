@@ -38,10 +38,10 @@ public class MenuBar extends JMenuBar  {
 
         JMenu groceryList = new JMenu("GroceryList");
         JMenuItem createGroceryList = new JMenuItem("Create Grocery List");
-        JMenuItem showGroceryLists = new JMenuItem("Show Grocery Lists");
+        JMenuItem searchGroceryList = new JMenuItem("Search Grocery List");
 
         groceryList.add(createGroceryList);
-        groceryList.add(showGroceryLists);
+        groceryList.add(searchGroceryList);
 
         menu.add(userAccount);
         menu.add(recipe);
@@ -65,8 +65,6 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
-
-
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,21 +81,12 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
-        showGroceryLists.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                viewManagerModel.setActiveView("Show Grocery List");
-                viewManagerModel.firePropertyChanged();
-            }
-        });
-
         createRecipe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Create Recipe");
                 viewManagerModel.firePropertyChanged();
+
             }
         });
-
-    }
-}
+}}

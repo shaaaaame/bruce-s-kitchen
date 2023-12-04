@@ -5,6 +5,6 @@ import java.util.UUID;
 
 public interface CreateRecipeDataAccessInterface {
 
-    boolean existsbyID(UUID id);
+    boolean exitById(UUID id);
     void save(Recipe recipe);
 }

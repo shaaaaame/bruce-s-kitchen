@@ -36,6 +36,8 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
                 JsonNode recipeIdNode = node.get("recipeId");
                 if (recipeIdNode != null) {
                     recipeId = UUID.fromString(recipeIdNode.asText());
+                } else {
+                    recipeId = UUID.randomUUID();
                 }
 
                 JsonNode userIdNode = node.get("userId");
@@ -64,7 +66,7 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
                     }
                 }
                 else {
-                    tags = null; //change
+                    tags = new Tag[0]; //change
                 }
 
 
@@ -72,9 +74,16 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
 
                 List<String> ingredients = new ArrayList<>();
                 JsonNode ingredientNode = node.get("ingredients");
-                for (JsonNode ingredientBranch: ingredientNode){
-                    ingredients.add(ingredientBranch.asText());
+
+                if (ingredientNode.isArray()){
+                    for (JsonNode ingredientBranch: ingredientNode){
+                        ingredients.add(ingredientBranch.asText());
+                    }
+                } else{
+                    ingredients = new ArrayList<String>(List.of(ingredientNode.asText().split("\\|")));
+                    System.out.println(ingredients);
                 }
+
                 recipeLists.add(new Recipe(recipeId, userId, name, servings, ingredients, tags, instructions, dateCreated));
             }
 

@@ -29,19 +29,19 @@ public class MenuBar extends JMenuBar  {
 
         JMenu recipe = new JMenu("Recipe");
         JMenuItem searchRecipe = new JMenuItem("Search existing recipes");
-        JMenuItem bookmarkRecipe = new JMenuItem("Browse recipes");
+        JMenuItem browseRecipe = new JMenuItem("Browse recipes");
         JMenuItem createRecipe = new JMenuItem("Create new recipe");
 
         recipe.add(searchRecipe);
-        recipe.add(bookmarkRecipe);
+        recipe.add(browseRecipe);
         recipe.add(createRecipe);
 
         JMenu groceryList = new JMenu("GroceryList");
         JMenuItem createGroceryList = new JMenuItem("Create Grocery List");
-        JMenuItem searchGroceryList = new JMenuItem("Search Grocery List");
+        JMenuItem showGroceryLists = new JMenuItem("Show Grocery Lists");
 
         groceryList.add(createGroceryList);
-        groceryList.add(searchGroceryList);
+        groceryList.add(showGroceryLists);
 
         menu.add(userAccount);
         menu.add(recipe);
@@ -65,6 +65,8 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
+
+
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,12 +83,25 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
+        browseRecipe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("Recipe Browse");
+        showGroceryLists.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("Show Grocery List");
+                viewManagerModel.firePropertyChanged();
+            }
+        });
+
         createRecipe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Create Recipe");
                 viewManagerModel.firePropertyChanged();
-
             }
         });
-}}
+
+    }
+}

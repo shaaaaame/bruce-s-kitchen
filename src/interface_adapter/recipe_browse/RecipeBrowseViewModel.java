@@ -1,16 +1,18 @@
-package interface_adapter.recipe_search;
+package interface_adapter.recipe_browse;
 
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class RecipeSearchViewModel extends ViewModel {
-    public static final String TITLE_LABEL = "Search a recipe!";
+public class RecipeBrowseViewModel extends ViewModel {
+    public static final String TITLE_LABEL = "Show saved recipes";
+    private RecipeBrowseState state = new RecipeBrowseState();
 
-    private RecipeSearchState state = new RecipeSearchState();
+    public void setState(RecipeBrowseState state){this.state = state;
+    }
+    public RecipeBrowseState getState() {return state;}
 
-    public void setState(RecipeSearchState state) {this.state = state;}
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     // This is what the Signup Presenter will call to let the ViewModel know
@@ -23,10 +25,7 @@ public class RecipeSearchViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public RecipeSearchViewModel(){
-        super("Recipe Search");
+    public RecipeBrowseViewModel(){
+        super("Show Saved Recipes");
     }
-
-    public RecipeSearchState getState() {return state;}
-
 }

@@ -1,11 +1,14 @@
 package view;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import entity.Recipe;
 import interface_adapter.recipe_search.RecipeSearchController;
 import interface_adapter.recipe_search.RecipeSearchState;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
+import view.recipe.RecipeCard;
 
 import javax.swing.*;
+import java.util.List;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +22,8 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
     public final String viewName = "Recipe Search";
     private final RecipeSearchViewModel recipeSearchViewModel;
     private final RecipeSearchController recipeSearchController;
+    JPanel recipeCards = new JPanel();
+
 
     public RecipeSearchView(RecipeSearchViewModel recipeSearchViewModel, RecipeSearchController recipeSearchController) {
         this.recipeSearchViewModel = recipeSearchViewModel;
@@ -30,13 +35,16 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
         JPanel titleSpace = new JPanel();
 
         JTextField searchField = new JTextField();
-        LabelTextPanel searchTextPanel = new LabelTextPanel(new JLabel("search:"), searchField);
+        LabelTextPanel searchTextPanel = new LabelTextPanel(new JLabel("Search:"), searchField);
 
         JPanel buttons = new JPanel();
-        JButton backButton = new JButton("back");
+        JButton backButton = new JButton("Back");
         JPanel leftPanel = new JPanel();
         JPanel rightPanel = new JPanel();
         JButton searchButton = new JButton("Search");
+        JScrollPane mainContent = new JScrollPane(recipeCards);
+        recipeCards.setLayout(new BoxLayout(recipeCards, BoxLayout.PAGE_AXIS));
+        recipeCards.setBackground(new Color(255, 255, 255));
 
         searchButton.addActionListener(
                 new ActionListener() {
@@ -78,6 +86,7 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
                 }
         );
 
+
         this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
         title.setAlignmentY(Component.CENTER_ALIGNMENT);
@@ -86,8 +95,7 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
         titleSpace.setLayout(new BorderLayout());
         titleSpace.add(title, BorderLayout.LINE_START);
         titleSpace.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-
-
+        mainContent.setPreferredSize(new Dimension(800, 400));
         buttons.setLayout(new BorderLayout());
 
         backButton.setBackground(Colors.highlight1);
@@ -111,6 +119,7 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
 
         this.add(titleSpace);
         this.add(searchTextPanel);
+        this.add(mainContent);
         this.add(buttons);
     }
 
@@ -119,6 +128,18 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
         boolean searchCheck = !currentState.getSearch().isEmpty();
         return searchCheck;
     }
+
+    private void updateListData(List<Recipe> recipes){
+        this.recipeCards.removeAll();
+
+        for(int i = 0; i < recipes.size(); i++){
+            this.recipeCards.add(new RecipeCard(recipes.get(i)));
+        }
+
+        this.recipeCards.revalidate();
+        this.recipeCards.repaint();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -126,6 +147,10 @@ public class RecipeSearchView extends JPanel implements ActionListener, Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        if (evt.getSource().equals(recipeSearchViewModel)){
+            RecipeSearchState currentState = recipeSearchViewModel.getState();
+            List<Recipe> recipes = currentState.getRecipeList();
+            updateListData(recipes);
+        }
     }
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterface {
 
     private final Map<UUID, Recipe> recipeMap = new HashMap<UUID, Recipe>();
+
     private final String JSON_PATH = "./recipesList.json";
     private final File jsonFile;
     private RecipeFactory recipeFactory;
@@ -76,6 +77,11 @@ public class RecipeFileDataAccessObject implements RecipeSearchDataAccessInterfa
         recipeMap.remove(id);
         this.save();
     }
+
+    public Map<UUID, Recipe> getRecipeMap() {
+        return recipeMap;
+    }
+
 
     /*
     initializing recipe map from json file

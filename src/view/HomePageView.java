@@ -35,7 +35,7 @@ public class HomePageView extends JPanel implements ActionListener, PropertyChan
 
 
 
-        ImageIcon duck = new ImageIcon(getClass().getResource("/Resources/peckingduck.jpeg"));
+        ImageIcon duck = new ImageIcon(getClass().getResource("/homepage.jpeg"));
         JLabel img = new JLabel(duck);
         mainContent.add(searchField);
 

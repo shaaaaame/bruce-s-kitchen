@@ -4,6 +4,7 @@ import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryRecipeAPIDataAccessObject;
 import data_access.RecipeFileDataAccessObject;
+import data_access.RecileFileDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
@@ -12,7 +13,7 @@ import interface_adapter.recipe_browse.RecipeBrowseViewModel;
 import interface_adapter.recipe_bookmark.GetBookmarkedController;
 import interface_adapter.recipe_bookmark.GetBookmarkedViewModel;
 import interface_adapter.recipe_browse.RecipeBrowseViewModel;
-import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
+import interface_adapter.grocery_list_show.ShowGroceryListViewModel;
 import interface_adapter.recipe_create.RecipeCreatorViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -53,6 +54,7 @@ public class Main {
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
         RecipeBrowseViewModel recipeBrowseViewModel = new RecipeBrowseViewModel();
         GetBookmarkedViewModel getBookmarkedViewModel = new GetBookmarkedViewModel();
+        ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
 
         RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
         FileUserDataAccessObject userDataAccessObject;
@@ -110,6 +112,7 @@ public class Main {
 
         RecipeBrowseView recipeBrowseView = RecipeBrowseUseCaseFactory.create(viewManagerModel, recipeBrowseViewModel, recipeSearchViewModel, recipeBrowseDataAccessObject, recipeSearchDataAccessObject);
         views.add(recipeBrowseView, recipeBrowseView.viewName);
+
         ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
         views.add(showGroceryListView, showGroceryListView.viewName);
 

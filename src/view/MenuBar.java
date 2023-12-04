@@ -65,8 +65,6 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
-
-
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -87,6 +85,7 @@ public class MenuBar extends JMenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Recipe Browse");
+                viewManagerModel.firePropertyChanged();
             }
         });
 

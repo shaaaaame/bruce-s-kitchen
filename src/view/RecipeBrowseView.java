@@ -10,12 +10,14 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.List;
 
-public class RecipeBrowseView extends JPanel implements PropertyChangeListener {
+public class RecipeBrowseView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Recipe Browse";
     private final RecipeBrowseViewModel recipeBrowseViewModel;
     private final RecipeSearchViewModel recipeSearchViewModel;
@@ -148,5 +150,10 @@ public class RecipeBrowseView extends JPanel implements PropertyChangeListener {
             System.out.println(recipes.size());
             updateRecipeList(recipes);
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

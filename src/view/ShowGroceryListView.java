@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShowGroceryListView extends JPanel implements PropertyChangeListener {
+public class ShowGroceryListView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Show Grocery List";
     private final ShowGroceryListViewModel showGroceryListViewModel;
     private final ShowGroceryListController showGroceryListController;
@@ -110,6 +112,11 @@ public class ShowGroceryListView extends JPanel implements PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
     }
 }

@@ -57,7 +57,7 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
-        groceryList.addActionListener(new ActionListener() {
+        createGroceryList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Grocery List");
@@ -72,7 +72,13 @@ public class MenuBar extends JMenuBar  {
                 viewManagerModel.firePropertyChanged();
             }
         });
-
-
+        createRecipe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("recipeCreator");
+                viewManagerModel.firePropertyChanged();
+            }
+        });
     }
+
 }

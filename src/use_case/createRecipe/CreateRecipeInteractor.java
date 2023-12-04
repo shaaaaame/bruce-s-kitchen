@@ -37,6 +37,7 @@ public class CreateRecipeInteractor implements CreateRecipeInputBoundary{
                 recipe.getName(),
                 recipe.getDate()
         );
+        createRecipePresenter.prepareSuccessView(createRecipeOutputDta);
     }
 
 }

@@ -13,8 +13,8 @@ public class RecipeCreatorController {
 
     final CreateRecipeInputBoundary createRecipeInteractor;
 
-    public RecipeCreatorController(CreateRecipeInputBoundary createRecipeInteractor){
-        this.createRecipeInteractor = createRecipeInteractor;
+    public RecipeCreatorController(CreateRecipeInputBoundary createRecipeInputBoundary){
+        this.createRecipeInteractor = createRecipeInputBoundary;
     }
 
     public void execute(String name, List<String> ingredients, String instructions, String servings, UUID user_id, Tag[] tags){

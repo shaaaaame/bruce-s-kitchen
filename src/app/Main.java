@@ -2,10 +2,12 @@ package app;
 
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
+import entity.RecipeFactory;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.recipeCreator.RecipeCreatorViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
@@ -41,6 +43,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
+        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -71,6 +74,7 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
+        RecipeCreatorView recipeCreatorView = CreateRecipeUseCaseFactory.create(viewManagerModel, recipeCreatorViewModel, )
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override

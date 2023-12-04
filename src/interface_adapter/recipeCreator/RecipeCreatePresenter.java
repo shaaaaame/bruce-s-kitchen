@@ -3,7 +3,7 @@ import interface_adapter.ViewManagerModel;
 import use_case.createRecipe.CreateRecipeOutputBoundary;
 import use_case.createRecipe.CreateRecipeOutputDta;
 
-public class RecipeCreatePresenter {
+public class RecipeCreatePresenter implements CreateRecipeOutputBoundary{
 
     private final RecipeCreatorViewModel recipeCreatorViewModel;
     private ViewManagerModel viewManagerModel;

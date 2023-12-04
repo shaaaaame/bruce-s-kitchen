@@ -57,7 +57,7 @@ public class FileGroceryListDataAccessObject implements GroceryListDataAccessInt
     }
 
     public List<GroceryList> getAll(){
-        return (List<GroceryList>) groceryListMap.values();
+        return new ArrayList<GroceryList>(groceryListMap.values());
     }
 
     public GroceryList getByGroceryId(UUID id){

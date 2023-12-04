@@ -13,7 +13,7 @@ import java.beans.PropertyChangeEvent;
 
 public class RecipeCreatorView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "recipeCreator";
+    public final String viewName = "Create Recipe";
     private final RecipeCreatorViewModel recipeCreatorViewModel;
     private final RecipeCreatorController recipeCreatorController;
 

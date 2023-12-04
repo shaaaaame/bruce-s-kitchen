@@ -85,7 +85,7 @@ public class Main {
         RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
 
-        viewManagerModel.setActiveView(homePageView.viewName);
+        viewManagerModel.setActiveView(signupView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {

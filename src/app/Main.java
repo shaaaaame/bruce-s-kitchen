@@ -1,6 +1,5 @@
 package app;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryRecipeAPIDataAccessObject;
@@ -8,6 +7,7 @@ import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -44,11 +44,12 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
+        ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.json",new UserFactory());
+            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -85,7 +86,7 @@ public class Main {
         RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -98,6 +99,11 @@ public class Main {
                 }
             }
         });
+
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
+
+        viewManagerModel.setActiveView(showGroceryListView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

@@ -9,12 +9,12 @@ import java.util.List;
 
 public class RecipeSearchInteractor implements RecipeSearchInputBoundary{
 
-    final RecipeSearchDataAccessInterface recipeSearchDataAccessObject;
     final RecipeFactory recipeSearchFactory;
     final RecipeSearchOutputBoundary recipePresenter;
     final InMemoryRecipeAPIDataAccessObject recipeSearchObject;
-    public RecipeSearchInteractor(RecipeSearchDataAccessInterface recipeSearchDataAccessObject, RecipeFactory recipeSearchFactory, RecipeSearchOutputBoundary recipePresenter, InMemoryRecipeAPIDataAccessObject recipeSearchObject) {
-        this.recipeSearchDataAccessObject = recipeSearchDataAccessObject;
+    public RecipeSearchInteractor(InMemoryRecipeAPIDataAccessObject recipeSearchObject,
+                                  RecipeFactory recipeSearchFactory,
+                                  RecipeSearchOutputBoundary recipePresenter) {
         this.recipeSearchFactory = recipeSearchFactory;
         this.recipePresenter = recipePresenter;
         this.recipeSearchObject = recipeSearchObject;

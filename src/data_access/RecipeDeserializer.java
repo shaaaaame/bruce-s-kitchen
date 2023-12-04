@@ -36,6 +36,8 @@ public class RecipeDeserializer extends StdDeserializer<List<Recipe>> {
                 JsonNode recipeIdNode = node.get("recipeId");
                 if (recipeIdNode != null) {
                     recipeId = UUID.fromString(recipeIdNode.asText());
+                } else {
+                    recipeId = UUID.randomUUID();
                 }
 
                 JsonNode userIdNode = node.get("userId");

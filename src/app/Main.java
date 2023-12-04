@@ -49,7 +49,7 @@ public class Main {
 
         FileUserDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new UserFactory());
+            userDataAccessObject = new FileUserDataAccessObject("./users.json", new UserFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -100,10 +100,10 @@ public class Main {
             }
         });
 
-        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
-        views.add(showGroceryListView, showGroceryListView.viewName);
-
-        viewManagerModel.setActiveView(showGroceryListView.viewName);
+//        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+//        views.add(showGroceryListView, showGroceryListView.viewName);
+//
+//        viewManagerModel.setActiveView(showGroceryListView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

@@ -100,8 +100,8 @@ public class Main {
             }
         });
 
-//        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
-//        views.add(showGroceryListView, showGroceryListView.viewName);
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
 //
 //        viewManagerModel.setActiveView(showGroceryListView.viewName);
         viewManagerModel.firePropertyChanged();

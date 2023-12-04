@@ -7,6 +7,7 @@ import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -43,6 +44,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
+        ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
@@ -98,6 +100,10 @@ public class Main {
             }
         });
 
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
+
+        viewManagerModel.setActiveView(showGroceryListView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

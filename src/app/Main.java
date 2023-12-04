@@ -1,5 +1,6 @@
 package app;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import entity.UserFactory;
@@ -44,7 +45,7 @@ public class Main {
 
         FileUserDataAccessObject userDataAccessObject;
         try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.json", new UserFactory());
+            userDataAccessObject = new FileUserDataAccessObject("./users.json",new UserFactory());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -71,19 +72,19 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
-//        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
-//            @Override
-//            public void propertyChange(PropertyChangeEvent evt) {
-//                if (evt.getSource().equals(viewManagerModel)){
-//                    if (viewManagerModel.isLoggedIn()){
-//                        menuBar.show();
-//                    }else{
-//                        menuBar.hide();
-//                    }
-//                }
-//            }
-//        });
+        viewManagerModel.setActiveView(loginView.viewName);
+        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getSource().equals(viewManagerModel)){
+                    if (viewManagerModel.isLoggedIn()){
+                        menuBar.show();
+                    }else{
+                        menuBar.hide();
+                    }
+                }
+            }
+        });
         viewManagerModel.firePropertyChanged();
 
         app.pack();

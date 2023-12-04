@@ -71,19 +71,19 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(loginView.viewName);
-        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getSource().equals(viewManagerModel)){
-                    if (viewManagerModel.isLoggedIn()){
-                        menuBar.show();
-                    }else{
-                        menuBar.hide();
-                    }
-                }
-            }
-        });
+        viewManagerModel.setActiveView(homePageView.viewName);
+//        viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
+//            @Override
+//            public void propertyChange(PropertyChangeEvent evt) {
+//                if (evt.getSource().equals(viewManagerModel)){
+//                    if (viewManagerModel.isLoggedIn()){
+//                        menuBar.show();
+//                    }else{
+//                        menuBar.hide();
+//                    }
+//                }
+//            }
+//        });
         viewManagerModel.firePropertyChanged();
 
         app.pack();

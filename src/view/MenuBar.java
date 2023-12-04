@@ -57,7 +57,7 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
-        groceryList.addActionListener(new ActionListener() {
+        createGroceryList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Grocery List");

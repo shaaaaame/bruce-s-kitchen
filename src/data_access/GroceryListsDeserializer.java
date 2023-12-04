@@ -34,11 +34,9 @@ public class GroceryListsDeserializer extends StdDeserializer<List<GroceryList>>
                 List<String> ingredients = new ArrayList<String>();
 
                 JsonNode ingredientNode = node.get("ingredients");
-                Iterator<String> ingredientNames = ingredientNode.fieldNames();
 
-                while (ingredientNames.hasNext()){
-                    String fieldName = ingredientNames.next();
-                    ingredients.add(ingredientNode.get(fieldName).toString());
+                for(JsonNode js : ingredientNode){
+                    ingredients.add(js.asText());
                 }
 
                 groceryLists.add(new GroceryList(groceryId, name, userId, dateCreated, ingredients));

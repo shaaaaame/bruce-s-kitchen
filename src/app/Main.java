@@ -80,7 +80,7 @@ public class Main {
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
-
+      
         RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
 
@@ -97,6 +97,7 @@ public class Main {
                 }
             }
         });
+
         viewManagerModel.firePropertyChanged();
 
         app.pack();

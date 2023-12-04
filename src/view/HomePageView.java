@@ -12,7 +12,7 @@ import interface_adapter.homepage.HomePageViewModel;
 
 public class HomePageView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "homePage";
+    public final String viewName = "Home";
     public final HomePageViewModel homePageViewModel;
     public HomePageView(ViewManagerModel viewManagerModel, HomePageViewModel homePageViewModel){
 

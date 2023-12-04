@@ -6,6 +6,7 @@ import java.awt.*;
 public class AddTagPanel extends JPanel {
     JTextField tagField;
 
+
     public AddTagPanel(JTextField tagField) {
         this.tagField = tagField;
 

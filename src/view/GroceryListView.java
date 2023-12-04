@@ -30,7 +30,6 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
         this.groceryListViewModel = groceryListViewModel;
         this.groceryListController = groceryListController;
 
-        // TODO: uncomment once implemented
         // implement button function, send data
          groceryListViewModel.addPropertyChangeListener(this);
 

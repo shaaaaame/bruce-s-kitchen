@@ -7,6 +7,7 @@ import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.show_grocery_list.ShowGroceryListViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
@@ -39,6 +40,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
+        ShowGroceryListViewModel showGroceryListViewModel = new ShowGroceryListViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -69,7 +71,10 @@ public class Main {
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
 
-        viewManagerModel.setActiveView(homePageView.viewName);
+        ShowGroceryListView showGroceryListView = ShowGroceryListUseCaseFactory.create(viewManagerModel, showGroceryListViewModel, groceryListDataAccessObject);
+        views.add(showGroceryListView, showGroceryListView.viewName);
+
+        viewManagerModel.setActiveView(showGroceryListView.viewName);
         viewManagerModel.firePropertyChanged();
 
         app.pack();

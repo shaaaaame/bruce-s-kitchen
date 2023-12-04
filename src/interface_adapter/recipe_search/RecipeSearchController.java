@@ -7,10 +7,10 @@ import use_case.recipe_search.RecipeSearchInputData;
 import use_case.recipe_search.RecipeSearchInteractor;
 
 public class RecipeSearchController {
-    final RecipeSearchInputBoundary recipeSearchInputBoundary;
+    final RecipeSearchInputBoundary RecipeSearchInteractor;
 
     public RecipeSearchController(RecipeSearchInputBoundary recipeSearchInputBoundary) {
-        this.recipeSearchInputBoundary = recipeSearchInputBoundary;
+        this.RecipeSearchInteractor = recipeSearchInputBoundary;
     }
 
     public void execute(String search) throws JsonProcessingException {

@@ -91,6 +91,13 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
+        createRecipe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("Create Recipe");
+                viewManagerModel.firePropertyChanged();
+            }
+        });
 
     }
 }

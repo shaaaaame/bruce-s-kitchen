@@ -2,12 +2,12 @@ package app;
 
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
-import entity.RecipeFactory;
+import data_access.InMemoryRecipeAPIDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.recipeCreator.RecipeCreatorViewModel;
+import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
@@ -43,7 +43,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
-        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
+        RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -57,6 +57,13 @@ public class Main {
             groceryListDataAccessObject = new FileGroceryListDataAccessObject();
         } catch (IOException e){
             throw new RuntimeException("Unable to read groceryList.json");
+        }
+
+        InMemoryRecipeAPIDataAccessObject recipeSearchDataAccessObject;
+        try{
+            recipeSearchDataAccessObject = new InMemoryRecipeAPIDataAccessObject();
+        } catch (IOException e){
+            throw new RuntimeException("Unable to pull from API");
         }
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, signupViewModel, userDataAccessObject);
@@ -73,8 +80,10 @@ public class Main {
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
+      
+        RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
+        views.add(recipeSearchView, recipeSearchView.viewName);
 
-        RecipeCreatorView recipeCreatorView = CreateRecipeUseCaseFactory.create(viewManagerModel, recipeCreatorViewModel, )
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
@@ -88,6 +97,7 @@ public class Main {
                 }
             }
         });
+
         viewManagerModel.firePropertyChanged();
 
         app.pack();

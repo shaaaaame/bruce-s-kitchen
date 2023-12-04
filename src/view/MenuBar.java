@@ -29,7 +29,7 @@ public class MenuBar extends JMenuBar  {
 
         JMenu recipe = new JMenu("Recipe");
         JMenuItem searchRecipe = new JMenuItem("Search existing recipes");
-        JMenuItem bookmarkRecipe = new JMenuItem("Bookmark recipe");
+        JMenuItem bookmarkRecipe = new JMenuItem("Browse recipes");
         JMenuItem createRecipe = new JMenuItem("Create new recipe");
 
         recipe.add(searchRecipe);
@@ -72,13 +72,15 @@ public class MenuBar extends JMenuBar  {
                 viewManagerModel.firePropertyChanged();
             }
         });
-        createRecipe.addActionListener(new ActionListener() {
+
+        searchRecipe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                viewManagerModel.setActiveView("recipeCreator");
+                viewManagerModel.setActiveView("Recipe Search");
                 viewManagerModel.firePropertyChanged();
             }
         });
-    }
 
+
+    }
 }

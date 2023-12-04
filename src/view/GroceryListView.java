@@ -19,12 +19,17 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Stack;
 
 public class GroceryListView  extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "Grocery List";
     private final GroceryListViewModel groceryListViewModel;
     private final GroceryListController groceryListController;
+    JList<String> ingredientListPanel = new JList<String>();
+    JTextField nameField = new JTextField();
+
+
 
     public GroceryListView(GroceryListController groceryListController, GroceryListViewModel groceryListViewModel) {
         this.groceryListViewModel = groceryListViewModel;
@@ -38,10 +43,8 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
         JLabel title = new JLabel(GroceryListViewModel.TITLE_LABEL);
         JPanel titleSpace = new JPanel();
 
-        JTextField nameField = new JTextField();
         LabelTextPanel nameTextPanel = new LabelTextPanel(new JLabel("name:"), nameField);
 
-        JList<String> ingredientListPanel = new JList<String>();
         JLabel ingredientText = new JLabel("ingredients:");
         JScrollPane ingredientScrollPane = new JScrollPane(ingredientListPanel);
         JPanel ingredientBox = new JPanel();
@@ -69,6 +72,15 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
                                         currentState.getUserId(),
                                         currentState.getIngredients()
                                 );
+
+                                JOptionPane.showMessageDialog(null, "Added Grocery List \"" + currentState.getName());
+
+                                currentState.clear();
+                                clearFields();
+                                groceryListViewModel.setState(currentState);
+
+
+
                             } else {
                                 JOptionPane.showMessageDialog(null, "some fields are blank!");
                             }
@@ -97,6 +109,7 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
                                 ingredientListPanel.setListData(currentIngredients.toArray(new String[0]));
                                 currentState.setIngredients(currentIngredients);
                                 groceryListViewModel.setState(currentState);
+
                             }
 
 
@@ -219,15 +232,9 @@ public class GroceryListView  extends JPanel implements ActionListener, Property
         this.add(buttons);
     }
 
-    private void deleteIngredientsFromArray(int start, int end){
-        GroceryListState currentState = groceryListViewModel.getState();
-        List<String> currentIngredients = currentState.getIngredients();
-
-        for(int i = end; i >= start; i--){
-            currentIngredients.remove(i);
-        }
-
-        currentState.setIngredients(currentIngredients);
+    private void clearFields(){
+        this.nameField.setText("");
+        this.ingredientListPanel.setListData(new String[0]);
     }
 
     private boolean validateData(){

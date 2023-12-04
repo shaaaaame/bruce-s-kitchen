@@ -32,4 +32,11 @@ public class GroceryListState {
     public void setGroceryId(UUID groceryId) {
         this.groceryId = groceryId;
     }
+
+    public void clear(){
+        this.name = "";
+        this.groceryId = null;
+        this.userId = null;
+        this.ingredients = new ArrayList<>();
+    }
 }

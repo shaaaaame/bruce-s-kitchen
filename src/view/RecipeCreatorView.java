@@ -4,6 +4,7 @@ import interface_adapter.recipeCreator.RecipeCreatorController;
 import interface_adapter.recipeCreator.RecipeCreatorState;
 import interface_adapter.recipeCreator.RecipeCreatorViewModel;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
@@ -13,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 
 public class RecipeCreatorView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "recipeCreator";
+    public final String viewName = "Create Recipe";
     private final RecipeCreatorViewModel recipeCreatorViewModel;
     private final RecipeCreatorController recipeCreatorController;
 
@@ -22,7 +23,8 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
         this.recipeCreatorViewModel = recipeCreatorViewModel;
         this.recipeCreatorController = recipeCreatorController;
         recipeCreatorViewModel.addPropertyChangeListener(this);
-
+        /*
+        JPanel panel = new JPanel(new GridLayout(0, 2, 30, 20));
         JLabel title = new JLabel(RecipeCreatorViewModel.TITLE_LABEL);
         JPanel titlespace = new JPanel();
 
@@ -57,8 +59,20 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
                     }
                 }
         );
+        this.setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10, Color.pink));
+        title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        title.setAlignmentY(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Copperplate", Font.PLAIN, 20));
+        titlespace.setMaximumSize(new Dimension(9999, 100));
+        titlespace.setLayout(new BorderLayout());
+        titlespace.add(title, BorderLayout.LINE_START);
+        titlespace.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
+        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        this.add(titlespace);
+        this.add(panel);
+        */
         /*
-
         JPanel panel = new JPanel(new GridLayout(0, 2, 10, 10));
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
@@ -93,10 +107,9 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
 
         JButton submitButton = new JButton("Submit");
         panel.add(submitButton);
-        meow.add(panel);
-        meow.setSize(400, 300);
-        meow.setVisible(true);
-        */
+        this.add(panel);
+        this.setVisible(true);
+         */
     }
         @Override
         public void actionPerformed(ActionEvent e) {

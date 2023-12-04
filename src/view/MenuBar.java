@@ -38,10 +38,10 @@ public class MenuBar extends JMenuBar  {
 
         JMenu groceryList = new JMenu("GroceryList");
         JMenuItem createGroceryList = new JMenuItem("Create Grocery List");
-        JMenuItem searchGroceryList = new JMenuItem("Search Grocery List");
+        JMenuItem showGroceryLists = new JMenuItem("Show Grocery Lists");
 
         groceryList.add(createGroceryList);
-        groceryList.add(searchGroceryList);
+        groceryList.add(showGroceryLists);
 
         menu.add(userAccount);
         menu.add(recipe);
@@ -65,6 +65,8 @@ public class MenuBar extends JMenuBar  {
             }
         });
 
+
+
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,10 +87,36 @@ public class MenuBar extends JMenuBar  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 viewManagerModel.setActiveView("Recipe Browse");
+        showGroceryLists.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("Show Grocery List");
+                browseRecipe.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Browse");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                });
+            }
+        });
+
+        createRecipe.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewManagerModel.setActiveView("Create Recipe");
                 viewManagerModel.firePropertyChanged();
             }
         });
 
-
+        bookmarked.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        viewManagerModel.setActiveView("Recipe Bookmark");
+                        viewManagerModel.firePropertyChanged();
+                    }
+                }
+        );
     }
 }

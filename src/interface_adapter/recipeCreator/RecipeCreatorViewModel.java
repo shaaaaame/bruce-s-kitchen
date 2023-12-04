@@ -8,22 +8,10 @@ public class RecipeCreatorViewModel extends ViewModel{
     public static final String TITLE_LABEL = "Recipe creator";
     public static final String DONE_LABEL = "Done";
     private RecipeCreatorState state = new RecipeCreatorState();
-    public void setState(RecipeCreatorState state) {
-        this.state = state;
-        firePropertyChanged();
-    }
+    public void setState(RecipeCreatorState state) { this.state = state; }
     public RecipeCreatorViewModel() {
-        super(TITLE_LABEL);
+        super("recipeCreator");
     }
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
     public RecipeCreatorState getState() {
         return state;
     }

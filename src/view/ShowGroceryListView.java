@@ -86,7 +86,8 @@ public class ShowGroceryListView extends JPanel implements PropertyChangeListene
                     @Override
                     public void valueChanged(ListSelectionEvent e) {
                         if (e.getSource().equals(groceryNamesJList)){
-                            singleItemCard.show(singleItem, String.valueOf(e.getLastIndex()));
+
+                            singleItemCard.show(singleItem, String.valueOf(groceryNamesJList.getSelectedIndex()));
                         }
                     }
                 }

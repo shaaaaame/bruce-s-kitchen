@@ -14,4 +14,9 @@ public class RecipeSearchOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
+    public List<Recipe> getRecipeList() {
+        return this.recipeList;
+    }
+
+    public boolean getUseCaseFailed() { return this.useCaseFailed; }
 }

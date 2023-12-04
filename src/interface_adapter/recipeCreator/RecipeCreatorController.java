@@ -17,8 +17,8 @@ public class RecipeCreatorController {
         this.createRecipeInteractor = createRecipeInputBoundary;
     }
 
-    public void execute(String name, List<String> ingredients, String instructions, String servings, UUID user_id, Tag[] tags){
-        RecipeInputData recipeInputData = new RecipeInputData(name, servings, ingredients, instructions, user_id, tags);
+    public void execute(UUID user_id, String name, String servings, List<String> ingredients, Tag[] tags, String instructions){
+        RecipeInputData recipeInputData = new RecipeInputData(user_id, name, servings, ingredients, tags, instructions);
 
         createRecipeInteractor.execute(recipeInputData);
     }

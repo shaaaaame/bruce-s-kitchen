@@ -10,9 +10,7 @@ public class RecipeCreatorViewModel extends ViewModel{
     private RecipeCreatorState state = new RecipeCreatorState();
     public void setState(RecipeCreatorState state) { this.state = state; }
     public RecipeCreatorViewModel() {
-        super("recipeCreator");
+        super("Create Recipe");
     }
-    public RecipeCreatorState getState() {
-        return state;
-    }
+    public RecipeCreatorState getState() { return state; }
 }

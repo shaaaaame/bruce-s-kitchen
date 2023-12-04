@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 
 public class RecipeCreatorView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final String viewName = "recipeCreator";
+    public final String viewName = "Create Recipe";
     private final RecipeCreatorViewModel recipeCreatorViewModel;
     private final RecipeCreatorController recipeCreatorController;
 
@@ -24,9 +24,11 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
         this.recipeCreatorController = recipeCreatorController;
         recipeCreatorViewModel.addPropertyChangeListener(this);
         /*
+
         JPanel panel = new JPanel(new GridLayout(0, 2, 30, 20));
         JLabel title = new JLabel(RecipeCreatorViewModel.TITLE_LABEL);
         JPanel titlespace = new JPanel();
+
 
         JTextField name = new JTextField();
         LabelTextPanel nameP = new LabelTextPanel(new JLabel("Name:"), name);
@@ -63,6 +65,8 @@ public class RecipeCreatorView extends JPanel implements ActionListener, Propert
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
         title.setAlignmentY(Component.CENTER_ALIGNMENT);
         title.setFont(new Font("Copperplate", Font.PLAIN, 20));
+
+
         titlespace.setMaximumSize(new Dimension(9999, 100));
         titlespace.setLayout(new BorderLayout());
         titlespace.add(title, BorderLayout.LINE_START);

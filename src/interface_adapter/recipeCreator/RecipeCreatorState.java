@@ -14,6 +14,7 @@ public class RecipeCreatorState {
     private String servings = "0";
     private UUID user_id;
     private List<String> ingredients = new ArrayList<>();
+    private UUID recipe_Id;
 
     public RecipeCreatorState(){
     }

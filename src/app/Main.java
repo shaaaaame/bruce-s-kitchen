@@ -3,10 +3,13 @@ package app;
 import data_access.FileGroceryListDataAccessObject;
 import data_access.FileUserDataAccessObject;
 import data_access.InMemoryRecipeAPIDataAccessObject;
+import data_access.RecipeFileDataAccessObject;
+import data_access.RecileFileDataAccessObject;
 import entity.UserFactory;
 import interface_adapter.grocery_list.GroceryListViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.recipeCreator.RecipeCreatorViewModel;
 import interface_adapter.recipe_search.RecipeSearchViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
@@ -44,6 +47,7 @@ public class Main {
         GroceryListViewModel groceryListViewModel = new GroceryListViewModel();
         HomePageViewModel homePageViewModel = new HomePageViewModel();
         RecipeSearchViewModel recipeSearchViewModel = new RecipeSearchViewModel();
+        RecipeCreatorViewModel recipeCreatorViewModel = new RecipeCreatorViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -57,6 +61,13 @@ public class Main {
             groceryListDataAccessObject = new FileGroceryListDataAccessObject();
         } catch (IOException e){
             throw new RuntimeException("Unable to read groceryList.json");
+        }
+
+        RecileFileDataAccessObject recipeFileDataAccessObject;
+        try{
+            recipeFileDataAccessObject = new RecileFileDataAccessObject();
+        } catch (IOException e){
+            throw new RuntimeException("Unable to meow");
         }
 
         InMemoryRecipeAPIDataAccessObject recipeSearchDataAccessObject;
@@ -80,9 +91,13 @@ public class Main {
 
         GroceryListView groceryListView = GroceryListUseCaseFactory.create(viewManagerModel, groceryListViewModel, groceryListDataAccessObject);
         views.add(groceryListView, groceryListView.viewName);
-      
+
         RecipeSearchView recipeSearchView = RecipeSearchUseCaseFactory.create(viewManagerModel, recipeSearchViewModel, recipeSearchDataAccessObject);
         views.add(recipeSearchView, recipeSearchView.viewName);
+
+        RecipeCreatorView recipeCreatorView = CreateRecipeUseCaseFactory.create(viewManagerModel, recipeCreatorViewModel, recipeFileDataAccessObject);
+        views.add(recipeCreatorView, recipeCreatorView.viewName);
+
 
         viewManagerModel.setActiveView(loginView.viewName);
         viewManagerModel.addPropertyChangeListener(new PropertyChangeListener() {

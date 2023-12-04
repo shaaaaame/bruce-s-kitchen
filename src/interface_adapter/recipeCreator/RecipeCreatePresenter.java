@@ -12,9 +12,11 @@ public class RecipeCreatePresenter implements CreateRecipeOutputBoundary{
         this.recipeCreatorViewModel = recipeCreatorViewModel;
         this.viewManagerModel = viewManagerModel;
     }
+    @Override
     public void prepareSuccessView(CreateRecipeOutputDta createRecipeOutputDta){
 
     }
+    @Override
     public void prepareFailView(String error){
 
     }
